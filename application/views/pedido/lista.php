@@ -1,12 +1,11 @@
 <div class="col-md-12">
-	
 	<div class="card">
 		<div class="card-header">
 			<h3>Pedidos&nbsp;<i class="ti-timer"></i></h3>
 		</div>
 		<div class="card-body">
 			<div class="col-12">
-				<a href="" class="btn btn-primary">
+				<a href="javascript:click()" class="btn btn-primary">
 					Nuevo Pedido&nbsp;
 					<i class="ti-plus"></i>
 				</a>
@@ -43,3 +42,31 @@
 		</div>
 	</div>
 </div>
+<script>
+  function click(){
+    // const {value: formValues} = await Swal({
+    //   title: 'Tipo de pedido',
+    //   html : 
+    //   '<a class="btn btn-dark btn-lg btn-block">Presencial</a>'+
+    //   '<a class="btn btn-dark btn-lg btn-block">Delivery</a>',
+
+    // })
+    // if (formValues) {
+    //   Swal(json.stringify(formValues))
+    // }
+    Swal({
+      title: 'Tipo de pedido',
+      type: 'info',
+      // input: 'range',
+      html : 
+      '<a href="'+srv.url()+'pedido/nuevo/presencial" class="btn btn-dark btn-lg btn-block text-light">Presencial&nbsp;'+
+      '<span class="fa fa-ticket"></span></a>'+
+      '<a href="'+srv.url()+'pedido/nuevo/delivery" class="btn btn-dark btn-lg btn-block text-light">Delivery&nbsp'+
+      '<span class="ti-truck"></span></a>',
+      showCancelButton: true,
+      showConfirmButton: false,
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#fd0054'
+    })
+  }
+</script>

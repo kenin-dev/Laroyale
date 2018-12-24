@@ -2,7 +2,7 @@ Options +FollowSymLinks
 Options -Indexes
 DirectoryIndex index.html index.php
 RewriteEngine on
-RewriteCond $1 !^(index\.php|images|coda|template|robots\.txt)
+RewriteCond $1 !^(index\.php|images|coda|template|storage|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /Laroyale/index.php/$1 [L,QSA]

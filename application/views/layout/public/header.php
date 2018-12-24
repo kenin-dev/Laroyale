@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="<?= base_url()?>template/fonts/Open Sans/open_sans.css">
     <link href="<?= base_url();?>template/library/datatable/datatables.min.css" rel="stylesheet">
     <link href="<?= base_url();?>template/library/datatable/dataTables.bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url()?>template/library/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/fonts/iconfood/style.css">
     <!-- <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css"> -->
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> -->
 </head>

@@ -15,9 +15,13 @@
     <script src="<?= base_url()?>template/library/datatable/buttons.flash.min.js"></script>
     <script src="<?= base_url()?>template/library/datatable/jszip.min.js"></script>
 
+    <script src="<?= base_url()?>template/vendors/popper.js/dist/umd/popper.js"></script>
     <script src="<?= base_url()?>template/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <script src="<?= base_url()?>template/assets/js/main.js"></script>
-    <script src="<?= base_url()?>template/library/sweetalert/sweetalert.min.js"></script>
+    <script src="<?= base_url()?>template/library/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url()?>template/library/sweetalert2/sweetalert2.min.js"></script>
+    <!-- <script src="<?= base_url()?>template/library/sweetalert2/promise-polyfill.js"></script> -->
     <script src="<?= base_url()?>template/library/iziToast/iziToast.min.js"></script>
     <script src="<?= base_url()?>coda/config.js"></script>
 

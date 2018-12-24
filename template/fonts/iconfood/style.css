@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?gyi7fw');
+  src:  url('fonts/icomoon.eot?gyi7fw#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?gyi7fw') format('truetype'),
+    url('fonts/icomoon.woff?gyi7fw') format('woff'),
+    url('fonts/icomoon.svg?gyi7fw#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-hambur .path1:before {
+  content: "\e900";
+  color: rgb(7, 6, 4);
+}
+.icon-hambur .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(238, 160, 52);
+}
+.icon-hambur .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(193, 57, 60);
+}
+.icon-hambur .path4:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(160, 221, 81);
+}
+.icon-hambur .path5:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(252, 204, 60);
+}

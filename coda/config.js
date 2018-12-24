@@ -13,7 +13,17 @@ class Servidor{
 		const app      = 'Laroyale'; 
 		const url = protocol+'//'+server+'/'+app+'/';
 		return url;
-	} 
+	}
+
+    fecha(){
+        var d = new Date();
+        var year  = d.getFullYear();
+        var fake_m = d.getMonth() + 1;
+        var month = ( fake_m > 9 ) ? fake_m : '0'+fake_m;
+        var day   = (d.getDate()>9) ? d.getDate() : '0'+d.getDate();
+        return year+'-'+month+'-'+day;
+        // console.log("In: "+year+'-'+month+'-'+day);
+    } 
 }
 
 class UI{
@@ -31,7 +41,7 @@ class UI{
 
 class Notificacion{
 
-	exito(titulo, mensaje, posicion){
+	exito(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
         title: titulo,
         message: mensaje,
@@ -45,7 +55,7 @@ class Notificacion{
     });
 	}
 
-	error(titulo, mensaje, posicion){
+	error(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
         title: titulo,
         message: mensaje,
@@ -59,7 +69,7 @@ class Notificacion{
     });
 	}
 
-	aviso(titulo, mensaje, posicion){
+	aviso(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
         title: titulo,
         message: mensaje,
@@ -73,19 +83,29 @@ class Notificacion{
     });
 	}
 
-  info(titulo, mensaje, posicion){
-    iziToast.show({
-        title: titulo,
-        message: mensaje,
-        position: posicion,
-        backgroundColor: '#97de95',
-        messageColor: '#606470',
-        titleColor: '#606470',
-        timeout : 3000,
-        icon : 'fas fa-exclamation-circle',
-        iconColor: '#606470' 
-    });
-  }
+    info(titulo, mensaje, posicion){
+        iziToast.show({
+            title: titulo,
+            message: mensaje,
+            position: posicion,
+            backgroundColor: '#97de95',
+            messageColor: '#606470',
+            titleColor: '#606470',
+            timeout : 3000,
+            icon : 'fas fa-exclamation-circle',
+            iconColor: '#606470' 
+        });
+    }
+
+    inputError(input){
+        document.querySelector(input).classList.remove('is-valid');
+        document.querySelector(input).classList.add('is-invalid');
+    }
+
+    inputValido(input){
+        document.querySelector(input).classList.remove('is-invalid');  
+        document.querySelector(input).classList.add('is-valid');
+    }
 
 }
 
