@@ -23,7 +23,8 @@
     <script src="<?= base_url()?>template/library/sweetalert2/sweetalert2.min.js"></script>
     <!-- <script src="<?= base_url()?>template/library/sweetalert2/promise-polyfill.js"></script> -->
     <script src="<?= base_url()?>template/library/iziToast/iziToast.min.js"></script>
-    <script src="<?= base_url()?>coda/config.js"></script>
+    <script src="<?= base_url()?>template/library/print.js/print.min.js"></script>
+    <script src="<?= base_url()?>coda/app.js"></script>
 
     <!-- <script src="vendors/chart.js/dist/Chart.bundle.min.js"></script> -->
     <!-- <script src="assets/js/dashboard.js"></script>

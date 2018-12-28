@@ -37,6 +37,40 @@ class UI{
 		// console.log(aleatorio);
 		document.querySelector('body').setAttribute('background',ruta);
 	}
+
+    Imprimir(cont){
+        // try {
+        //     var content  = document.getElementById(cont).innerHTML
+        //     var mywindow = window.open('','Imprimir','height=600,width=800')
+
+        //     mywindow.document.write('<html><head><title>Print</title></head>')
+        //     mywindow.document.write('<body>')
+        //     mywindow.document.write(content)
+        //     mywindow.document.write('</body>')
+
+        //     mywindow.document.close()
+        //     mywindow.focus()
+        //     mywindow.print()
+        //     mywindow.close()
+
+        //     return true
+        // } catch(e) {
+        //     return e.message
+        //     console.log(e);
+        // } 
+
+        // var contenido= document.getElementById(cont).innerHTML;
+        // var contenidoOriginal= document.body.innerHTML;
+
+        // document.body.innerHTML = contenido;
+        // window.print();
+        // document.body.innerHTML = contenidoOriginal
+
+    }
+
+    // OrdenPrint(){
+    //     $("#modal_orden").modal('show')
+    // }
 }
 
 class Notificacion{
@@ -49,7 +83,7 @@ class Notificacion{
         backgroundColor: 'rgb(42, 122, 120)',
         messageColor: '#fff',
         titleColor: 'rgb(236, 249, 178)',
-        timeout : 3000,
+        timeout : 4000,
         icon : 'ti-check',
         iconColor: 'rgb(204, 238, 0)' 
     });
@@ -63,7 +97,7 @@ class Notificacion{
         backgroundColor: '#fd0054',
         messageColor: '#fff',
         titleColor: '#fff',
-        timeout : 3000,
+        timeout : 4000,
         icon : 'ti-close',
         iconColor: '#fff' 
     });
@@ -77,7 +111,7 @@ class Notificacion{
         backgroundColor: 'rgb(249,210,25) ',
         messageColor: 'rgb(101,100,95)',
         titleColor: 'rgb(56,54,54)',
-        timeout : 3000,
+        timeout : 4000,
         icon : 'ti-info-alt',
         iconColor: 'rgb(56,54,54)' 
     });
@@ -91,7 +125,7 @@ class Notificacion{
             backgroundColor: '#97de95',
             messageColor: '#606470',
             titleColor: '#606470',
-            timeout : 3000,
+            timeout : 4000,
             icon : 'fas fa-exclamation-circle',
             iconColor: '#606470' 
         });
@@ -117,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function(){
         ],
         "language": {
         "lengthMenu": "Mostrar _MENU_ registros por pagina",
-        "zeroRecords": "No se encontro nada - Perdon",
+        "zeroRecords": "No se encontraron datos",
         "info": "Mostrando pagina _PAGE_ de _PAGES_",
         "infoEmpty": "Sin registros disponibles",
         "infoFiltered": "(filtrando _MAX_ total records)"

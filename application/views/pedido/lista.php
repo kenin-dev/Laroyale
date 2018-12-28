@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 			<div class="col-12">
-				<a href="javascript:click()" class="btn btn-primary">
+				<a href="javascript:click()" class="btn btn-primary text-light">
 					Nuevo Pedido&nbsp;
 					<i class="ti-plus"></i>
 				</a>

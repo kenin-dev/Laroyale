@@ -86,7 +86,7 @@ function ver_productos(id){
 	                cadena += "<td>"+data[i]['categoria']+"</td>";
 	                cadena += "<td>"+data[i]['nombre']+"</td>";
 	                cadena += "<td>"+data[i]['precio']+"</td>";
-	                cadena += "<td><button class='btn btn-primary prod-option' onclick='producto_elegir(event)' data-code='"+data[i]['id']+"'>";
+	                cadena += "<td><button class='btn btn-dark prod-option' onclick='producto_elegir(event)' data-code='"+data[i]['id']+"'>";
 	                cadena += "Elegir</button></td>";
 	                cadena += "</tr>";
 	            }
@@ -227,8 +227,26 @@ function crear(){
 			pedido : mem_pedido,
 			detalle : mem_detalle
 		},
-		success: function(resp){
-			console.log(resp)
+		success: function(res){
+			var resp = JSON.parse(res)
+			// console.log(resp)
+			switch (resp['code']) {
+				case 0:
+					not.error('Genial! : ', resp['message'], 'topCenter')
+					// alert(resp['message'])
+					break;
+				case 1:
+					not.exito('Oops! : ', resp['message'], 'topCenter')
+					setTimeout(function(){
+						// window.location = srv.url()+'Inicio'
+						// ui.Imprimir('PedidoCont')
+					},1100)
+					break;
+				default:
+					// statements_def
+					break;
+			}
+
 		}
 	})
 }
@@ -236,19 +254,3 @@ function crear(){
 
 
 
-// `dp_id`, 
-// `pedido_id`, 
-// `producto_id`, 
-// `dp_precio`, 
-// `dp_cantidad`, 
-// `dp_importe`, 
-// `dp_detalle`
-
-
-
-// `ped_id`, 
-// `ped_fecha`, 
-// `ped_subtotal`, 
-// `ped_tipo_consumo`, 
-// `ped_destino`, 
-// `ped_estado`

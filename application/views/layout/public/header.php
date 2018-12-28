@@ -3,23 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Laroyale</title>
+    <title>Laroyale System</title>
     <meta name="description" content="Laroyale System>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="<?= base_url()?>template/images/hamburger.png">
     <link rel="shortcut icon" href="<?= base_url()?>template/images/hamburger.png">
-    <link rel="stylesheet" href="<?= base_url()?>template/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/vendors/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="<?= base_url()?>template/vendors/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= base_url()?>template/vendors/themify-icons/css/themify-icons.css">
     <link rel="stylesheet" href="<?= base_url()?>template/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="<?= base_url()?>template/vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="<?= base_url();?>template/library/iziToast/iziToast.min.css">
     <link rel="stylesheet" href="<?= base_url()?>template/assets/css/style.css">
-    <link rel="stylesheet" href="<?= base_url()?>template/fonts/Open Sans/open_sans.css">
     <link href="<?= base_url();?>template/library/datatable/datatables.min.css" rel="stylesheet">
     <link href="<?= base_url();?>template/library/datatable/dataTables.bootstrap4.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url()?>template/library/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/library/print.js/print.min.css">
     <link rel="stylesheet" href="<?= base_url()?>template/fonts/iconfood/style.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/assets/css/app.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/fonts/Open Sans/open_sans.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/fonts/Roboto Mono/roboto_mono.css">
     <!-- <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css"> -->
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> -->
 </head>

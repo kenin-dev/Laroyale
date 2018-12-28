@@ -3,6 +3,7 @@
 		<div class="card-header">
 			<h3>Nuevo Pedido&nbsp;<i class="fa fa-ticket"></i></h3>
 			<small>Presencial</small>
+			<!-- <a href="javascript:Prn('PedidoCont')" class="btn btn-warning">Print</a> -->
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -28,7 +29,7 @@
 					<?php endif ?>
 
 				</div>
-				<div class="col-xl-6 col-lg-12 col-md-12">
+				<div id="PedidoCont" class="col-xl-6 col-lg-12 col-md-12">
 					<div class="card">
 						<div class="card-header text-center">
 							<strong>Datos del pedido</strong>
@@ -47,7 +48,7 @@
 		                                <small class="form-text text-muted">ej. Av.nsq y nsc</small>
 		                            </div>
 								</div> -->
-								<div class="col-md-8">
+								<div class="col-6 col-md-6">
 									<div class="form-group">
 		                                <label class=" form-control-label">Mesa</label>
 		                                <div class="input-group">
@@ -71,7 +72,7 @@
 		                                <small class="form-text text-muted">ej. Av.nsq y nsc</small>
 		                            </div>
 								</div>
-								<div class="col-md-4">
+								<div class="col-6 col-md-6">
 									<div class="form-group">
 		                                <label class=" form-control-label">Fecha</label>
 		                                <div class="input-group">
