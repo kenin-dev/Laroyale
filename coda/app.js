@@ -67,10 +67,6 @@ class UI{
         // document.body.innerHTML = contenidoOriginal
 
     }
-
-    // OrdenPrint(){
-    //     $("#modal_orden").modal('show')
-    // }
 }
 
 class Notificacion{

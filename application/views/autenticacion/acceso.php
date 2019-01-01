@@ -37,5 +37,5 @@
 </body>
 </html>
 <script src="<?= base_url();?>template/library/iziToast/iziToast.min.js"></script>
-<script src="<?php echo base_url()?>coda/config.js"></script>
+<script src="<?php echo base_url()?>coda/app.js"></script>
 <script src="<?= base_url()?>coda/acceso.code.js"></script>

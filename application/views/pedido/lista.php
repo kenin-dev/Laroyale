@@ -32,6 +32,9 @@
                                     <td><?php echo $pd->ped_tipo_consumo;?></td>
                                     <td><?php echo $pd->ped_destino;?></td>
                                     <td><?php echo $pd->ped_subtotal;?></td>
+                                    <td>
+                                      <a href="<?= base_url()?>pedido/vista/<?= $pd->ped_id;?>" class="btn btn-info">Ver <i class="ti-new-window"></i></a>
+                                    </td>
                       				<td></td>
                       			</tr>
                       		<?php endforeach ?>	

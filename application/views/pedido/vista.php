@@ -108,15 +108,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php $prod_total = 0; ?>
 							<?php foreach ($detalle as $dp): ?>
+								<?php $prod_total = $prod_total+$dp->dp_importe; ?>
 								<tr>
 									<td>
-										<p class="text-primary ">
+										<label class="text-dark">
 											<?php echo $dp->dp_producto;?>
-										</p>
-										<small class="text-danger">
-											<?php echo $dp->dp_detalle; ?>
-										</small>
+											<p>
+												<small class="text-danger p-0">
+													<?php echo $dp->dp_detalle; ?>
+												</small>
+											</p>
+										</label>
+										
 									</td>
 									<td>
 										<?php echo $dp->dp_precio; ?>
@@ -129,6 +134,18 @@
 									</td>
 								</tr>
 							<?php endforeach ?>
+								<tr>
+									<td colspan="3">
+										<b>
+											Total
+										</b>
+									</td>
+									<td>
+										<b>
+											<?php echo number_format($prod_total,2); ?>
+										</b>
+									</td>
+								</tr>
 						</tbody>
 					</table>
 				</div>
@@ -159,9 +176,9 @@
 									<tr>
 										<td colspan="3" class="text-center">
 											<?php if ($pedido->ped_estado==='pendiente'): ?>
-												<a href="" class="btn btn-primary">
+												<a href="<?= base_url()?>pago/registro/<?= $pedido->ped_id;?>" class="btn btn-primary">
 													Agregar Pago&nbsp;
-													<i class="ti-bookmark-alt"></i>
+													<i class="ti-plus"></i>
 												</a>
 											<?php endif ?>
 										</td>
