@@ -12,115 +12,120 @@ class Mesa extends CI_Controller {
 		}	
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data  = array(
-			'mesas' => $this->Mesa_model->getMesasTodas(), 
+			'mesas' => $this->MesaModel->getMesasTodas(), 
 		);
-		$this->load->view("layouts/header");
-		$this->load->view("layouts/aside");
-		$this->load->view("admin/mesas/listar",$data);
-		$this->load->view("layouts/footer");
+		$this->load->view("layout/public/header");
+		$this->load->view("mesa/lista",$data);
+		$this->load->view("layout/public/footer");
 
-	}
-
-	public function get_mesas_rest(){
-
-		$mesas = $this->Mesa_model->getMesasTodas();
-		echo json_encode($mesas);
-
-	}
-
-	public function listar(){
-		$mesas = $this->Mesa_model->getMesasTodas();
 	}
 
 	public function nuevo(){
-		$this->load->view("layouts/header");
-		$this->load->view("layouts/aside");
-		$this->load->view("admin/mesas/registrar");
-		$this->load->view("layouts/footer");
+		$this->load->view("layout/public/header");
+		$this->load->view("mesa/registro");
+		$this->load->view("layout/public/footer");
 	}
 
-	public function agregar(){
-		$nombre = $this->input->post('numero');
-		$descripcion = $this->input->post('descripcion');
-		$estado = 'activo';
+	public function registrar(){
+		$numero = $this->input->post('inputNumero');
+		$descripcion = $this->input->post('inputDescripcion');
+		$estado = (strlen($this->input->post('inputEstado'))>0 ? $this->input->post('inputEstado') : 'activo'  );
 
-		$data = array(
-			'mesa_numero' => $nombre,
-			'mesa_descripcion' => $descripcion,
-			'mesa_estado' => $estado
-		);
+		if (strlen($numero) > 0) {
+			if (count($this->MesaModel->consultar_mesa($numero,'numero')) > 0) {
+				
+				$this->session->set_flashdata('error', 'El numero de la mesa ya existe, intente con otro.');
+				redirect(base_url().'Mesa/nuevo','refresh');
+			}else{
+				try {
+					$mesaData = array(
+						'mesa_numero' => $numero,
+						'mesa_descripcion' => $descripcion,
+						'mesa_estado' => $estado
+					);
 
-		$agregar = $this->Mesa_model->insertar($data);
-		if (count($agregar) > 0) {
-			$this->session->set_flashdata('correcto', 'Mesa agregada correctamente!');
+					$this->MesaModel->insertar($mesaData);
+					$this->session->set_flashdata('correcto', 'Mesa registrada con exito.');
+					redirect(base_url().'Mesa','refresh');
+					
+				} catch (Exception $e) {
+					$this->session->set_flashdata('error', $e->getMessage());
+					redirect(base_url().'Mesa/nuevo','refresh');
+				}
+
+			}
 		}else{
-			$this->session->set_flashdata('error', 'El registro no se pudo completar');
+			$this->session->set_flashdata('error', 'Datos incompletos, intente otra vez.');
+			redirect(base_url().'Mesa/nuevo','refresh');
 		}
-
-		redirect('mantenimiento/mesa','refresh');
-
-	}
+	} 
 
 	public function eliminar($id = null){
 		if (is_null($id)) {
-			$this->session->set_flashdata('error', 'Mesa no especificada');
-			redirect('mantenimiento/mesa','refresh');
-		}
-
-		$eliminar = $this->Mesa_model->remover($id);
-		if (count($eliminar) > 0) {
-			$this->session->set_flashdata('correcto', 'Mesa eliminada correctamente');
+			redirect(base_url().'mesa','refresh');
 		}else{
-			$this->session->set_flashdata('error', 'El proceso no se pudo completar!');
+			$eliminar = $this->MesaModel->eliminar($id);
+			if($eliminar > 0){
+				$this->session->set_flashdata('correcto', 'Mesa eliminada correctamente!');
+			}else{
+				$this->session->set_flashdata('error', 'El proceso de eliminacion fallo, intente luego.!');
+			}
+			redirect(base_url().'mesa','refresh');
 		}
-
-		redirect('mantenimiento/mesa','refresh');
 	}
 
-	public function editar($id = null){
+	function editar($id = null){
 		if (is_null($id)) {
-			$this->session->set_flashdata('error', 'Mesa no especificada');
-			redirect('mantenimiento/mesa','refresh');
-		}
+			redirect(base_url().'mesa','refresh');
 
-		$mesa = $this->Mesa_model->consultar_mesa($id);
-		if (count($mesa) > 0) {
-			$data = array(
-				'mesa' => $mesa,
-			);
-			$this->load->view("layouts/header");
-			$this->load->view("layouts/aside");
-			$this->load->view("admin/mesas/editar",$data);
-			$this->load->view("layouts/footer");
 		}else{
-			$this->session->set_flashdata('error', 'Mesa no encontrada');
-			redirect('mantenimiento/mesa','refresh');
+			$mesa = $this->MesaModel->consultar_mesa($id,'id');
+			if(count($mesa)){
+				$data = array(
+					'mesa' => $mesa
+				);	
+
+				$this->load->view("layout/public/header.php");
+				$this->load->view("mesa/editar.php",$data);
+				$this->load->view("layout/public/footer.php");
+			}else{
+				$this->session->set_flashdata('error', 'Cliente no encontrado!');
+				redirect(base_url().'cliente','refresh');
+			}
+		}
+	}
+
+	function editar_enviar(){
+		$id = $this->input->post('inputId');
+		$numero = $this->input->post('inputNumero');
+		$descripcion = $this->input->post('inputDescripcion');
+		$estado = $this->input->post('inputEstado');
+
+		if(strlen($id) > 0){
+			try {
+				$this->db->trans_begin();
+				$mesaData = array(
+					'mesa_numero' => $numero,
+					'mesa_descripcion' => $descripcion,
+					'mesa_estado' => $estado
+				);
+				$actualizar = $this->MesaModel->editar($id,$mesaData);
+				$this->db->trans_commit();
+				$this->session->set_flashdata('correcto', 'Datos actualizados');
+				// redirect(base_url().'mesa','refresh');
+			} catch (Exception $e) {
+				$this->session->set_flashdata('error', $e->getMessage());
+			}
+			redirect(base_url().'mesa','refresh');
+		}else{
+			$this->session->set_flashdata('error', 'mesa no especificada');
+			redirect(base_url().'mesa','refresh');
 		}
 
 	}
-
-	public function actualizar(){
-		$id = $this->input->post('id');
-		$nombre = $this->input->post('numero');
-		$descripcion = $this->input->post('descripcion');
-		$estado = 'activo';
-
-		$data = array(
-			'mesa_numero' => $nombre,
-			'mesa_descripcion' => $descripcion,
-			'mesa_estado' => $estado
-		);
-		$actualizar = $this->Mesa_model->update($id,$data);
-		if (count($actualizar) > 0) {
-			$this->session->set_flashdata('correcto', 'Edicion completada');
-		}else{
-			$this->session->set_flashdata('error', 'El proceso no se pudo completar!');
-		}
-		redirect('mantenimiento/mesa','refresh');
-	}
-
 
 }
+
+?>

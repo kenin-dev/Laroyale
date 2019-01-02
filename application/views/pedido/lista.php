@@ -35,7 +35,6 @@
                                     <td>
                                       <a href="<?= base_url()?>pedido/vista/<?= $pd->ped_id;?>" class="btn btn-info">Ver <i class="ti-new-window"></i></a>
                                     </td>
-                      				<td></td>
                       			</tr>
                       		<?php endforeach ?>	
                       <?php endif ?>

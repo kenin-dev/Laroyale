@@ -1,3 +1,6 @@
+body {
+	font-family: 'Open Sans','segoe ui';
+}
 .print_text {
 	font-family: Roboto Mono;
 }
@@ -5,3 +8,44 @@
 .hr-text {
 	border-top: 1px dashed #8c8b8b;
 }
+
+.tree{
+	list-style: none;
+	padding-left: 20px;
+	position: relative;
+	font-family: 'Roboto Mono';
+}
+.tree-blue {
+	color: #0b409c;
+
+}
+.tree-green {
+	color: #0c907d;
+}
+.tree:before{ 
+	content: '';
+	width: 1px;
+	background: #1b335f;
+	top: 0;
+	bottom:7px;
+	left:0;
+	position: absolute;
+}
+.tree li{ 
+	position: relative;
+	margin-top:10px;
+}
+.tree li:hover, .tree li:focus{
+	color: #69779b;
+	cursor: pointer;
+} 
+.tree li:before{ 
+	content: '';
+	width: 20px;
+	height: 1px;
+	background: #1b335f;
+	top: 12px;
+	left:-20px;
+	position: absolute;
+}
+.tree .tree{display: none;}

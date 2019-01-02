@@ -68,19 +68,19 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="ti-user"></i>
-                                <a href="ui-buttons.html">Clientes</a>
-                            </li>
-                            <li>
-                                <i class="ti-briefcase"></i>
-                                <a href="ui-badges.html">Productos</a>
-                            </li>
-                            <li>
-                                <i class="ti-layout-column2"></i>
-                                <a href="ui-tabs.html">Mesas</a>
+                                <a href="<?= base_url()?>cliente">Clientes</a>
                             </li>
                             <li>
                                 <i class="ti-star"></i>
-                                <a href="ui-social-buttons.html">Categorias</a>
+                                <a href="<?= base_url()?>categoria">Categorias</a>
+                            </li>
+                            <li>
+                                <i class="ti-briefcase"></i>
+                                <a href="<?= base_url()?>producto">Productos</a>
+                            </li>
+                            <li>
+                                <i class="ti-view-grid"></i>
+                                <a href="<?= base_url()?>mesa">Mesas</a>
                             </li>
                         </ul>
                     </li>

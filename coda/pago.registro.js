@@ -3,22 +3,22 @@ var productosG = new Array()
 var pagosGlobal = new Array()
 var pedidoID;
 const contenedorForm = document.getElementById('contenidoPagos')
-const consolaTest = document.getElementById('consola')
+// const consolaTest = document.getElementById('consola')
 
-const b_add = document.getElementById('b-agregar');
+const b_agr = document.getElementById('b-agregar')
+const b_pag = document.getElementById('b-pagar')
+
 document.addEventListener('DOMContentLoaded', function(){
 
 	pedidoID = get_id('pedidoID').value
 	cargarProductos()
-	b_add.disabled = false
-
+	b_agr.disabled = false
+	b_pag.disabled = false
 
 	document.addEventListener('click',function(e){
-		consolaTest.innerHTML = pagosGlobal
+		// consolaTest.innerHTML = pagosGlobal
 		if (e.target.matches('#b-agregar')) {
-
 			crearPago()
-		
 		}
 
 		if (e.target.matches('.item-disp')) {
@@ -170,7 +170,7 @@ var crearPago = function(){
 			var contenedorListas = document.createElement('div')
 			var contSeleccion = document.createElement('div')
 			var contDisponible = document.createElement('div')
-			var listaSeleccion = document.createElement('div')
+			var listaSeleccion = document.createElement('ul')
 			var listaDisponible = document.createElement('div')
 			var labelSeleccion = document.createElement('b')
 			var labelDisponible = document.createElement('b')
@@ -182,9 +182,9 @@ var crearPago = function(){
 			contSeleccion.setAttribute('class','col-md-6')
 			contDisponible.setAttribute('class','col-md-6')
 			// contenedorListas.setAttribute('id',pagosGlobal[i].pago_lista)
-			listaSeleccion.setAttribute('class','list-group')
+			listaSeleccion.setAttribute('class','tree tree-blue')
 			listaSeleccion.setAttribute('id',lista_sel)
-			listaDisponible.setAttribute('class','lista_disponible list-group')
+			listaDisponible.setAttribute('class','tree tree-green lista_disponible')
 			listaDisponible.setAttribute('data-pagoind',indice)
 
 			// incluciones
@@ -226,13 +226,13 @@ function listarDisponibles(){
 		objetivo[z].innerHTML = ''
 		for (var i = 0; i < productosG.length; i++) {
 			if (productosG[i].estado == true) {
-				let item = document.createElement('a')
-				item.setAttribute('href','javascript:void(0)')
-				item.setAttribute('class','list-group-item list-group-item-action list-group-item-success item-disp')
+				let item = document.createElement('li')
+				// item.setAttribute('href','javascript:void(0)')
+				item.setAttribute('class','item-disp')
 				item.setAttribute('data-producto',productosG[i].id)
 				item.setAttribute('data-indice',i)
 				item.setAttribute('data-pagoind',objetivo[z].dataset.pagoind)
-				item.textContent = productosG[i].nombre
+				item.textContent = productosG[i].nombre+' ('+productosG[i].precio+')'
 				objetivo[z].appendChild(item)
 			}
 		}
@@ -247,13 +247,16 @@ function listarSeleccionado(){
 		let contenedor = document.getElementById(pagosGlobal[i].lista_sel)
 		contenedor.innerHTML = ''
 		for (var j = 0; j < pagosGlobal[i].productos.length; j++) {
-			let item = document.createElement('a')
-			item.setAttribute('href','javascript:void(0)')
-			item.setAttribute('class','list-group-item list-group-item-action list-group-item-primary item-sel')
+			let item = document.createElement('li')
+			let icon = document.createElement('i')
+			// item.setAttribute('href','javascript:void(0)')
+			icon.setAttribute('class', 'ti-check')
+			item.setAttribute('class','item-sel')
 			item.setAttribute('data-productoindice',j)
 			item.setAttribute('data-productoid',pagosGlobal[i].productos[j].id)
 			item.setAttribute('data-pagoind',i)
-			item.textContent = pagosGlobal[i].productos[j].nombre
+			item.textContent = pagosGlobal[i].productos[j].nombre+' ('+pagosGlobal[i].productos[j].precio+')'
+			item.appendChild(icon)
 			contenedor.appendChild(item)
 		}
 

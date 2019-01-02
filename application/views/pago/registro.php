@@ -1,48 +1,78 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			<h3>Registrar Pago</h3>
+			<h3>Registrar Pago - Pedido #<?= $pedido->ped_id; ?></h3>
 		</div>
 		<div class="card-body">
-			<div class="row">
+			<div class="form-row align-items-center">
 				
-				<div class="col-md-2">
-					<div class="group-input">
-						<label for=""><b>Pedido</b></label>
-						<input type="text" class="form-control text-center" value="<?= $pedido->ped_id;?>" id="pedidoID" readonly>
-					</div>
-				</div>
+				<div class="col-auto">
+			      <label for="pedidoID">
+			      	<b>Pedido</b>
+			      </label>
+			      <input type="text" class="form-control text-center" value="<?= $pedido->ped_id;?>" id="pedidoID" readonly>
+			    </div>
 
-				<div class="col-md-4 col-lg-3">
-					<div class="group-input">
-						<label for=""><b>Total a pagar</b></label>
-						<input type="text" class="form-control text-center" value="<?= $pedido->ped_subtotal;?>" name="pedidoSubtotal" readonly>
-					</div>
-				</div>
+			    <div class="col-auto">
+			      <label for="pedidoID">
+			      	<b>Tipo consumo</b>
+			      </label>
+			      <input type="text" class="form-control text-center" value="<?= $pedido->ped_tipo_consumo;?>" id="pedidoID" readonly>
+			    </div>
 
-				<div class="col-md-4 col-lg-3">
-					<label for="">&nbsp;</label>
-					<button id="b-agregar" class="btn btn-primary btn-block" disabled>
-						Agregar cuenta&nbsp;
-						<i class="ti-plus"></i>
+				<div class="col-auto">
+			      <label for="pedidoID">
+			      	<b>Destino</b>
+			      </label>
+			      <input type="text" class="form-control text-center" value="<?= $pedido->ped_destino;?>" name="pedidoSubtotal" readonly>
+			    </div>
+
+			    <div class="col-auto">
+			      <label for="pedidoID">
+			      	<b>Total a pagar</b>
+			      </label>
+			      <input type="text" class="form-control text-center" value="<?= $pedido->ped_subtotal;?>" name="pedidoSubtotal" readonly>
+			    </div>
+
+			</div>
+			<div class="form-row align-items-center">
+				
+			    <div class="col-auto">
+			    	<label for="">&nbsp;</label><br>
+			    	<button id="b-agregar" class="btn btn-success" disabled>
+						Agregar cuenta&nbsp;<i class="ti-plus"></i>
 					</button>
-				</div>
+			    </div>
 
-	
+			    <div class="col-auto">
+			    	<label for="">&nbsp;</label><br>
+			    	<button id="b-pagar" class="btn btn-primary" disabled>
+						Registrar pago&nbsp;<i class="ti-wand"></i>
+					</button>
+			    </div>
+
 			</div>
 			<hr>
-			<div id="contenidoPagos" class="col-md-12 p-4">
 
-			</div>
-			<div class="row">
-				<pre id="consola">
-					
-				</pre>
+
+			<div id="contenidoPagos" class="col-md-12 p-3">
+		
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- 
+					stdClass Object
+(
+    [ped_id] => 24
+    [ped_fecha] => 2018-11-04
+    [ped_subtotal] => 37.90
+    [ped_tipo_consumo] => presencial
+    [ped_destino] => Mesa 01
+    [ped_estado] => pendiente
+) -->
+	
 
 <div class="modal fade" id="modal_cliente" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

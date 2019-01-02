@@ -20,19 +20,29 @@ class MesaModel extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function consultar_mesa($id){
-		$sql = "select * from mesa where mesa.mesa_id = '$id'";
-		$consulta = $this->db->query($sql);
-		return $consulta->row(); 
+	public function consultar_mesa($valor,$busc = 'id'){
+		switch ($busc) {
+			case 'id':
+				$sql = "select * from mesa where mesa_id = ?";
+				$consulta = $this->db->query($sql,array($valor));
+				return $consulta->row(); 
+				break;
+			case 'numero':
+				$sql = "select * from mesa where mesa_numero = ?";
+				$consulta = $this->db->query($sql,array($valor));
+				return $consulta->row(); 
+				break;
+		}
 	}
 
-	public function remover($id){
-		$sql = "delete from mesa where mesa.mesa_id = '$id'";
-		$this->db->query($sql);
+
+	public function eliminar($id){
+		$sql = "delete from mesa where mesa_id = ?";
+		$this->db->query($sql,array($id));
 		return $this->db->affected_rows();
 	}
 
-	public function update($id,$data){
+	public function editar($id,$data){
 		$this->db->where("mesa_id",$id);
 		return $this->db->update("mesa",$data);
 	}
