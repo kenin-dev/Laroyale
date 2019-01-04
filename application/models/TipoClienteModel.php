@@ -1,11 +1,9 @@
 <?php  
-/**
- * 
- */
+
 class TipoClienteModel extends CI_Model
 {
 	
-	function buscar($tipo,$id = 0)
+	function select($tipo = 'todo',$id = 0)
 	{
 		switch ($tipo) {
 			case 'todo':

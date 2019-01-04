@@ -39,7 +39,7 @@
 				
 			    <div class="col-auto">
 			    	<label for="">&nbsp;</label><br>
-			    	<button id="b-agregar" class="btn btn-success" disabled>
+			    	<button id="b-agregar" class="btn btn-dark" disabled>
 						Agregar cuenta&nbsp;<i class="ti-plus"></i>
 					</button>
 			    </div>
@@ -47,7 +47,7 @@
 			    <div class="col-auto">
 			    	<label for="">&nbsp;</label><br>
 			    	<button id="b-pagar" class="btn btn-primary" disabled>
-						Registrar pago&nbsp;<i class="ti-wand"></i>
+						Registrar pago&nbsp;<i class="ti-check"></i>
 					</button>
 			    </div>
 
@@ -61,18 +61,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- 
-					stdClass Object
-(
-    [ped_id] => 24
-    [ped_fecha] => 2018-11-04
-    [ped_subtotal] => 37.90
-    [ped_tipo_consumo] => presencial
-    [ped_destino] => Mesa 01
-    [ped_estado] => pendiente
-) -->
-	
 
 <div class="modal fade" id="modal_cliente" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

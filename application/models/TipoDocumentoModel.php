@@ -1,11 +1,9 @@
 <?php  
-/**
- * 
- */
+
 class TipoDocumentoModel extends CI_Model
 {
 	
-	function buscar($tipo,$id = 0)
+	function select($tipo = 'todo',$id = 0)
 	{
 		switch ($tipo) {
 			case 'todo':
@@ -15,7 +13,7 @@ class TipoDocumentoModel extends CI_Model
 				break;
 
 			case 'uno':
-				$sql = "SELECT * FROM tipo_documento WHERE id = ?";
+				$sql = "SELECT * FROM tipo_documento WHERE tdoc_codigo = ?";
 				$cliente = $this->db->query($sql, array($id));
 				return $cliente->row();
 				break;

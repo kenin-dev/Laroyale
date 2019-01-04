@@ -3,48 +3,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MesaModel extends CI_Model {
 
-	public function getMesasTodas(){
-		// $this->db->where("estado","1");
-		$resultados = $this->db->get("mesa");
-		return $resultados->result();
-	}
-
-	public function getMesasLibres(){
-		$this->db->where("estado","libre");
-		$resultados = $this->db->get("mesa");
-		return $resultados->result();
-	}
-
-	public function insertar($data){
-		$this->db->insert("mesa",$data);
-		return $this->db->affected_rows();
-	}
-
-	public function consultar_mesa($valor,$busc = 'id'){
-		switch ($busc) {
+	function select($tipo = 'todo', $valor = 0){
+		switch ($tipo) {
+			case 'todo':
+				$sql = "SELECT * FROM mesa";
+				$consulta = $this->db->query($sql);
+				return $consulta->result();
+				break;
 			case 'id':
-				$sql = "select * from mesa where mesa_id = ?";
-				$consulta = $this->db->query($sql,array($valor));
-				return $consulta->row(); 
+				$sql = "SELECT * FROM mesa WHERE mes_codigo = ?";
+				$consulta = $this->db->query($sql, array($valor));
+				return $consulta->result();
 				break;
 			case 'numero':
-				$sql = "select * from mesa where mesa_numero = ?";
-				$consulta = $this->db->query($sql,array($valor));
-				return $consulta->row(); 
+				$sql = "SELECT * FROM mesa WHERE mes_numero = ?";
+				$consulta = $this->db->query($sql, array($valor));
+				return $consulta->result();
 				break;
 		}
 	}
 
-
-	public function eliminar($id){
-		$sql = "delete from mesa where mesa_id = ?";
-		$this->db->query($sql,array($id));
+	function insert($data){
+		$this->db->insert("mesa",$data);
 		return $this->db->affected_rows();
 	}
 
-	public function editar($id,$data){
-		$this->db->where("mesa_id",$id);
-		return $this->db->update("mesa",$data);
+	function delete($id){
+		$sql = "DELETE mesa WHERE mes_codigo = ?";
+		$this->db->query($sql, array($id));
+		return $this->db->affected_rows();
+	}
+
+	function update($id, $data){
+		$this->db->where("mes_codigo",$id);
+		$this->db->update("mesa",$data);
+		return $this->db->affected_rows();
 	}
 
 }

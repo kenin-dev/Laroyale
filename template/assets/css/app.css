@@ -14,13 +14,14 @@ body {
 	padding-left: 20px;
 	position: relative;
 	font-family: 'Roboto Mono';
+	font-weight: bold;
 }
 .tree-blue {
-	color: #0b409c;
+	color: #75C489;
 
 }
 .tree-green {
-	color: #0c907d;
+	color: #FD5C63;
 }
 .tree:before{ 
 	content: '';
@@ -35,8 +36,12 @@ body {
 	position: relative;
 	margin-top:10px;
 }
-.tree li:hover, .tree li:focus{
-	color: #69779b;
+.tree-blue li:hover, .tree li:focus{
+	color: #AECE82;
+	cursor: pointer;
+} 
+.tree-green li:hover, .tree li:focus{
+	color: #EA3E23;
 	cursor: pointer;
 } 
 .tree li:before{ 

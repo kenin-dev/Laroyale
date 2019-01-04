@@ -4,7 +4,7 @@
 			<h3>Mesas&nbsp;<i class="ti-view-grid"></i></h3>
 		</div>
 		<div class="card-body">
-			<div class="col-12">
+			<div class="col-12 p-4">
 				<a href="<?= base_url()?>mesa/nuevo" class="btn btn-primary text-light">
 					Nueva Mesa&nbsp;
 					<i class="ti-plus"></i>
@@ -36,7 +36,7 @@
 				<table id="dtable" class="table table-bordered">
           <thead class="thead-secondary">
             <tr>
-              <th scope="col">#</th>
+              <!-- <th scope="col">#</th> -->
               <th scope="col">Numero</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Accion</th>
@@ -47,14 +47,14 @@
                 <?php $cont = 0; ?>
                 <?php foreach ($mesas as $ms): ?>
                   <?php $cont++; ?>
-                <tr>
-                  <td><?php echo $cont ?></td>
-                  <td><?php echo $ms->mesa_numero; ?></td>
-                  <td><?php echo $ms->mesa_descripcion; ?></td>
+                <tr class="">
+                  <!-- <td><?php echo $cont ?></td> -->
+                  <td><?php echo $ms->mes_numero; ?></td>
+                  <td><?php echo $ms->mes_descripcion; ?></td>
                   <td>
-                    <a id="mesa-eliminar" href="<?= base_url()?>mesa/eliminar/<?= $ms->mesa_id ?>" data-mesa='<?= $ms->mesa_numero ?>' class="btn btn-danger btn-lg ti-trash">
+                    <a id="mesa-eliminar" href="<?= base_url()?>mesa/eliminar/<?= $ms->mes_codigo ?>" data-mesa='<?= $ms->mes_numero ?>' class="btn btn-danger btn-lg ti-trash">
                     </a> 
-                    <a href="<?= base_url()?>mesa/editar/<?= $ms->mesa_id?>" class="btn btn-warning btn-lg ti-pencil">
+                    <a href="<?= base_url()?>mesa/editar/<?= $ms->mes_codigo?>" class="btn btn-warning btn-lg ti-pencil">
                     </a>
                   </td>
                 </tr>

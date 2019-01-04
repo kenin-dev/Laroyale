@@ -1,7 +1,5 @@
 <?php  
-/**
- * 
- */
+
 class Cliente extends CI_Controller
 {
 	
@@ -20,17 +18,17 @@ class Cliente extends CI_Controller
 	function index(){
 
 		$data = array(
-			'clientes' => $this->ClienteModel->buscar('activos')
+			'clientes' => $this->ClienteModel->select('todo')
 		);
 		$this->load->view("layout/public/header.php");
 		$this->load->view("cliente/lista.php",$data);
 		$this->load->view("layout/public/footer.php");
 	}
 
-	function nuevo(){
+	function registrar(){
 		$data = array(
-			'tipo_cliente' => $this->TipoClienteModel->buscar('todo'),
-			'tipo_documento' => $this->TipoDocumentoModel->buscar('todo')
+			'tipo_cliente' => $this->TipoClienteModel->select('todo'),
+			'tipo_documento' => $this->TipoDocumentoModel->select('todo')
 		);	
 
 		$this->load->view("layout/public/header.php");
@@ -38,7 +36,7 @@ class Cliente extends CI_Controller
 		$this->load->view("layout/public/footer.php");
 	}
 
-	function registrar(){
+	function registrar_envio(){
 		$dni = $this->input->post('inputNumerodoc');
 		$tipo_doc = $this->input->post('inputTipodoc');
 		$nombres = $this->input->post('inputNombres');
@@ -48,24 +46,22 @@ class Cliente extends CI_Controller
 		$direccion = $this->input->post('inputDireccion');
 		$tipo_cliente = $this->input->post('inputTipocli');
 		
-		if (count($this->ClienteModel->buscar('dni',$dni)) > 0) {
+		if (count($this->ClienteModel->select('dni',$dni)) > 0) {
 			$this->session->set_flashdata('error', 'Ya existe un cliente con el dni especificado.');
 			redirect(base_url().'cliente/nuevo','refresh');
 		}else{
 			try {
 				$this->db->trans_begin();
 				$clienteData = array(
-					'nombre' => $nombres,
-					'ape_paterno' => $paterno,
-					'ape_materno' => $materno,
-					'telefono' => $telefono,
-					'direccion' => $direccion,
-					'tipo_cliente_id' => $tipo_cliente,
-					'tipo_documento_id' => $tipo_doc,
-					'num_documento' => $dni,
-					'estado' => 1
+					'cli_dni' => $dni,
+					'cli_nombres' => $nombres,
+					'cli_paterno' => $paterno,
+					'cli_materno' => $materno,
+					'cli_direccion' => $telefono,
+					'cli_telefono' => $direccion,
+					'cli_tipocliente' => $tipo_cliente
 				);
-				$registro = $this->ClienteModel->insertar($clienteData);
+				$registro = $this->ClienteModel->insert($clienteData);
 				$this->db->trans_commit();
 				$this->session->set_flashdata('correcto', 'Cliente registrado');
 				redirect(base_url().'cliente','refresh');
@@ -97,12 +93,12 @@ class Cliente extends CI_Controller
 		if (is_null($id)) {
 			redirect(base_url().'cliente','refresh');
 		}else{
-			$cliente = $this->ClienteModel->buscar('uno',$id);
+			$cliente = $this->ClienteModel->select('id',$id);
 			if(count($cliente)){
 				$data = array(
 					'cliente' => $cliente,
-					'tipo_cliente' => $this->TipoClienteModel->buscar('todo'),
-					'tipo_documento' => $this->TipoDocumentoModel->buscar('todo')
+					'tipo_cliente' => $this->TipoClienteModel->select('todo'),
+					'tipo_documento' => $this->TipoDocumentoModel->select('todo')
 				);	
 
 				$this->load->view("layout/public/header.php");
@@ -130,17 +126,15 @@ class Cliente extends CI_Controller
 
 			$this->db->trans_begin();
 			$clienteData = array(
-				'nombre' => $nombres,
-				'ape_paterno' => $paterno,
-				'ape_materno' => $materno,
-				'telefono' => $telefono,
-				'direccion' => $direccion,
-				'tipo_cliente_id' => $tipo_cliente,
-				'tipo_documento_id' => $tipo_doc,
-				'num_documento' => $dni,
-				'estado' => 1
+				'cli_dni' => $dni,
+				'cli_nombres' => $nombres,
+				'cli_paterno' => $paterno,
+				'cli_materno' => $materno,
+				'cli_direccion' => $telefono,
+				'cli_telefono' => $direccion,
+				'cli_tipocliente' => $tipo_cliente
 			);
-			$actualizar = $this->ClienteModel->editar($id,$clienteData);
+			$actualizar = $this->ClienteModel->update($id,$clienteData);
 			print_r($actualizar);
 			$this->db->trans_commit();
 			$this->session->set_flashdata('correcto', 'Datos actualizados');

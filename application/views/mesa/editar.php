@@ -5,7 +5,7 @@
 				<h3>Editar Mesa&nbsp;<i class="ti-view-grid"></i></h3>
 				<small>Actualizacion de datos</small>
 			</div>
-			<div class="col-12">
+			<div class="col-12 p-4">
 		        <?php if ($this->session->flashdata('correcto')): ?>
 		          <div class="alert alert-success alert-dismissible fade show" role="alert">
 		          	<strong>Correcto : </strong>&nbsp;<?php echo $this->session->flashdata('correcto'); ?>

@@ -14,7 +14,7 @@ class Mesa extends CI_Controller {
 
 	public function index(){
 		$data  = array(
-			'mesas' => $this->MesaModel->getMesasTodas(), 
+			'mesas' => $this->MesaModel->select(), 
 		);
 		$this->load->view("layout/public/header");
 		$this->load->view("mesa/lista",$data);
@@ -31,22 +31,20 @@ class Mesa extends CI_Controller {
 	public function registrar(){
 		$numero = $this->input->post('inputNumero');
 		$descripcion = $this->input->post('inputDescripcion');
-		$estado = (strlen($this->input->post('inputEstado'))>0 ? $this->input->post('inputEstado') : 'activo'  );
 
 		if (strlen($numero) > 0) {
-			if (count($this->MesaModel->consultar_mesa($numero,'numero')) > 0) {
+			if (count($this->MesaModel->select('numero',$numero)) > 0) {
 				
 				$this->session->set_flashdata('error', 'El numero de la mesa ya existe, intente con otro.');
 				redirect(base_url().'Mesa/nuevo','refresh');
 			}else{
 				try {
 					$mesaData = array(
-						'mesa_numero' => $numero,
-						'mesa_descripcion' => $descripcion,
-						'mesa_estado' => $estado
+						'mes_numero' => $numero,
+						'mes_descripcion' => $descripcion
 					);
 
-					$this->MesaModel->insertar($mesaData);
+					$this->MesaModel->insert($mesaData);
 					$this->session->set_flashdata('correcto', 'Mesa registrada con exito.');
 					redirect(base_url().'Mesa','refresh');
 					
@@ -66,7 +64,7 @@ class Mesa extends CI_Controller {
 		if (is_null($id)) {
 			redirect(base_url().'mesa','refresh');
 		}else{
-			$eliminar = $this->MesaModel->eliminar($id);
+			$eliminar = $this->MesaModel->delete($id);
 			if($eliminar > 0){
 				$this->session->set_flashdata('correcto', 'Mesa eliminada correctamente!');
 			}else{
@@ -81,7 +79,7 @@ class Mesa extends CI_Controller {
 			redirect(base_url().'mesa','refresh');
 
 		}else{
-			$mesa = $this->MesaModel->consultar_mesa($id,'id');
+			$mesa = $this->MesaModel->select('id',$id);
 			if(count($mesa)){
 				$data = array(
 					'mesa' => $mesa
@@ -111,7 +109,7 @@ class Mesa extends CI_Controller {
 					'mesa_descripcion' => $descripcion,
 					'mesa_estado' => $estado
 				);
-				$actualizar = $this->MesaModel->editar($id,$mesaData);
+				$actualizar = $this->MesaModel->update($id,$mesaData);
 				$this->db->trans_commit();
 				$this->session->set_flashdata('correcto', 'Datos actualizados');
 				// redirect(base_url().'mesa','refresh');
@@ -124,6 +122,11 @@ class Mesa extends CI_Controller {
 			redirect(base_url().'mesa','refresh');
 		}
 
+	}
+
+	function consulta_rest(){
+		$mesas = $this->MesaModel->select();
+		echo json_encode($mesas);
 	}
 
 }

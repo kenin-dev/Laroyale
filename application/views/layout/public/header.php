@@ -75,7 +75,7 @@
                                 <a href="<?= base_url()?>categoria">Categorias</a>
                             </li>
                             <li>
-                                <i class="ti-briefcase"></i>
+                                <i class="ti-apple"></i>
                                 <a href="<?= base_url()?>producto">Productos</a>
                             </li>
                             <li>

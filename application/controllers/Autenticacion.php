@@ -22,7 +22,7 @@ class Autenticacion extends CI_Controller
 		$username = $this->input->post('username');
 		$pass     = $this->input->post('pass');
 
-		$usuario = $this->UsuarioModel->buscar($username,sha1($pass));
+		$usuario = $this->UsuarioModel->buscar($username,$pass);
 
 		if (is_null($usuario)) {
 			
@@ -34,17 +34,17 @@ class Autenticacion extends CI_Controller
 
 		}else{
 			$sesion = array(
-				'ses_usuario' => $usuario->id,
-			 	'ses_nombre' => $usuario->nombres.' '.$usuario->apellidos,
-			 	'ses_email' => $usuario->email,
-			 	'ses_telefono' => $usuario->telefono,
+				'ses_usuario' => $usuario->usu_codigo,
+			 	'ses_nombre' => $usuario->usu_nombres,
+			 	'ses_email' => $usuario->emp_email,
+			 	'ses_telefono' => $usuario->emp_telefono,
 			 	'ses_sesion' => true
 			);
 			$this->session->set_userdata($sesion);
 
 			$resp = array(
 				'estado' => 1,
-				'mensaje' => 'Bienvenido '.$usuario->nombres.' '.$usuario->apellidos,
+				'mensaje' => 'Bienvenido '.$usuario->usu_nombres,
 				'contenido' => $usuario
 			);
 		}

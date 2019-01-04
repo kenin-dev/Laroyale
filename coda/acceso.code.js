@@ -47,7 +47,7 @@ function send(data){
 		}
 	})
 	.catch(function(err){
-		console.log(`${err.statusText}`)
+		console.log(err.statusText)
 	});
 
 }

@@ -1,10 +1,10 @@
 
 var productosG = new Array()
-var pagosGlobal = new Array()
+var cuentasArray = new Array()
 var pedidoID;
 const contenedorForm = document.getElementById('contenidoPagos')
 // const consolaTest = document.getElementById('consola')
-
+// pagosGlobal
 const b_agr = document.getElementById('b-agregar')
 const b_pag = document.getElementById('b-pagar')
 
@@ -16,41 +16,36 @@ document.addEventListener('DOMContentLoaded', function(){
 	b_pag.disabled = false
 
 	document.addEventListener('click',function(e){
-		// consolaTest.innerHTML = pagosGlobal
 		if (e.target.matches('#b-agregar')) {
 			crearPago()
 		}
 
-		if (e.target.matches('.item-disp')) {
+		if (e.target.matches('#b_pag')) {
 
+		}
+
+		if (e.target.matches('.item-disp')) {
 			let pago = e.target.dataset.pagoind
 			let producto = productosG[e.target.dataset.indice]
 			
-			pagosGlobal[pago].productos.push(producto)
+			cuentasArray[pago].productos.push(producto)
 			productosG[e.target.dataset.indice].estado = false
 			listarDisponibles()
 			listarSeleccionado()	
-	
 		}
 
 		if (e.target.matches('.item-sel')) {
-
 			let prod_ind_pag = e.target.dataset.productoindice
 			let productoid = e.target.dataset.productoid
 			let pago = e.target.dataset.pagoind
 			let prod_ind_glob = obtenerIndiceProducto(productoid)
 			console.log('indice :'+prod_ind_pag)
-			
-			
 
-			pagosGlobal[pago].productos.splice(prod_ind_pag,1)
+			cuentasArray[pago].productos.splice(prod_ind_pag,1)
 			productosG[prod_ind_glob].estado = true
 			
-
 			listarDisponibles()
 			listarSeleccionado()
-
-			
 		}
 	})
 
@@ -101,62 +96,97 @@ function cargarProductos(){
 }
 
 var crearPago = function(){
-		// contenedorForm.innerHTML = ''
-		// for (var i = 0; i < pagosGlobal.length; i++) {
-		let idx = parseInt(pagosGlobal.length)+1
-		let lista_sel = 'sel'+idx
 
-		pagosGlobal.push({
-			'pedidoid' : pedidoID,
-			'pago_id' : idx,
-			'lista_sel' : lista_sel,
-			'cliente_id' : 0,
-			'cliente_nombre' : '',
-			'total' : 0,
-			'recibido' : 0,
-			'devuelto' : 0,
-			'productos' : []
-		})
+	let idx = parseInt(cuentasArray.length)+1
+	let lista_sel = 'sel'+idx
+	let inp_subtotal = 'sub'+idx
+	let inp_recibido = 'rec'+idx
+	let inp_devuelto = 'dev'+idx
+
+	cuentasArray.push({
+		'pedidoid' : pedidoID,
+		'pago_id' : idx,
+		'lista_sel' : lista_sel,
+		'cliente_id' : 0,
+		'cliente_nombre' : 'No Especificado',
+		'input_subtotal' : inp_subtotal,
+		'input_recibido' : inp_recibido,
+		'input_devuelto' : inp_devuelto,
+		'recibido' : 0,
+		'devuelto' : 0,
+		'productos' : []
+	})
 			
-		let indice = parseInt(pagosGlobal.length)-1
+	let indice = parseInt(cuentasArray.length)-1
 
-			//card 
-			var card = document.createElement('div')
-			var cardhead = document.createElement('h5')
-			var cardbody = document.createElement('div')
+	//card 
+	var card = document.createElement('div')
+	var cardhead = document.createElement('h5')
+	var cardbody = document.createElement('div')
 
-			card.setAttribute('class','card border')
-			card.setAttribute('data-idform',idx)
-			cardhead.setAttribute('class','card-title')
-			cardbody.setAttribute('class','card-body')
-			cardhead.textContent = 'Cuenta #'+idx
-			//
+	card.setAttribute('class','card border')
+	card.setAttribute('data-idform',idx)
+	cardhead.setAttribute('class','card-title')
+	cardbody.setAttribute('class','card-body')
+	cardhead.textContent = 'Cuenta #'+idx
+	//
 
-			//form 
-			var contenidoCliente = document.createElement('div')
-			var contenidoDni = document.createElement('div')
-			var contenidoBuscar = document.createElement('div')
-			contenidoCliente.setAttribute('class','col-md-6')
-			contenidoDni.setAttribute('class','col-md-3 form-group')
-			contenidoBuscar.setAttribute('class','col-md-3')
+	//form 
+	var contenidoCliente = document.createElement('div')
+	var contenidoDni = document.createElement('div')
+	var contenidoBuscar = document.createElement('div')
+	var contenidoForm = document.createElement('div')
+	var contenidoSubtotal = document.createElement('div')
+	var contenidoRecibido = document.createElement('div')
+	var contenidoDevuelto = document.createElement('div')
 
-			var labelCliente = document.createElement('label')
-			var inputCliente = document.createElement('input')
-			labelCliente.textContent = 'Cliente'
-			// labelCliente.setAttribute('class','font-weight-bold')
-			inputCliente.setAttribute('type','text')
-			inputCliente.setAttribute('name','inputCliente')
-			inputCliente.setAttribute('class','form-control')
-			inputCliente.setAttribute('readonly','')
 
-			var labelDni = document.createElement('label')
-			var inputDni = document.createElement('input')
+	
+
+	contenidoCliente.setAttribute('class','col-md-6')
+	contenidoDni.setAttribute('class','col-md-3 form-group')
+	contenidoBuscar.setAttribute('class','col-md-3')
+	contenidoForm.setAttribute('class', 'col-12 col-md-12 p-0')
+	contenidoSubtotal.setAttribute('class','col-6 col-md-4')
+	contenidoRecibido.setAttribute('class','col-6 col-md-4')
+	contenidoDevuelto.setAttribute('class','col-6 col-md-4')
+
+	var labelCliente = document.createElement('label')
+	var inputCliente = document.createElement('input')
+	var labelDni = document.createElement('label')
+	var inputDni = document.createElement('input')
+	var labelSubtotal = document.createElement('label')
+	var inputSubtotal = document.createElement('input')
+	var labelRecibido = document.createElement('label')
+	var inputRecibido = document.createElement('input')
+	var labelDevuelto = document.createElement('label')
+	var inputDevuelto = document.createElement('input')
+
+	labelCliente.textContent = 'Cliente'
+	inputCliente.setAttribute('type','text')
+	inputCliente.setAttribute('name','inputCliente')
+	inputCliente.setAttribute('class','form-control')
+	inputCliente.setAttribute('readonly','')
+
 			labelDni.textContent = 'Dni'
-			// labelDni.setAttribute('class','font-weight-bold')
 			inputDni.setAttribute('type','text')
 			inputDni.setAttribute('name','inputDni')
 			inputDni.setAttribute('class','form-control')
 			inputDni.setAttribute('readonly','')
+			labelSubtotal.textContent = 'Subtotal'
+			inputSubtotal.setAttribute('type','text')
+			inputSubtotal.setAttribute('name','inputDni')
+			inputSubtotal.setAttribute('class','form-control')
+			inputSubtotal.setAttribute('readonly','')
+			labelRecibido.textContent = 'Recibido'
+			inputRecibido.setAttribute('type','text')
+			inputRecibido.setAttribute('name','inputDni')
+			inputRecibido.setAttribute('class','form-control')
+			labelDevuelto.textContent = 'Devuelto'
+			inputDevuelto.setAttribute('type','text')
+			inputDevuelto.setAttribute('name','inputDni')
+			inputDevuelto.setAttribute('class','form-control')
+			inputDevuelto.setAttribute('readonly','')
 
 			var buttonBuscar = document.createElement("button")
 			var labelBuscar  = document.createElement('hr')
@@ -181,7 +211,6 @@ var crearPago = function(){
 			contenedorListas.setAttribute('class','col-md-12')
 			contSeleccion.setAttribute('class','col-md-6')
 			contDisponible.setAttribute('class','col-md-6')
-			// contenedorListas.setAttribute('id',pagosGlobal[i].pago_lista)
 			listaSeleccion.setAttribute('class','tree tree-blue')
 			listaSeleccion.setAttribute('id',lista_sel)
 			listaDisponible.setAttribute('class','tree tree-green lista_disponible')
@@ -195,6 +224,13 @@ var crearPago = function(){
 			contenidoBuscar.appendChild(labelBuscar)
 			contenidoBuscar.appendChild(buttonBuscar)
 
+			contenidoSubtotal.appendChild(labelSubtotal)
+			contenidoSubtotal.appendChild(inputSubtotal)
+			contenidoRecibido.appendChild(labelRecibido)
+			contenidoRecibido.appendChild(inputRecibido)
+			contenidoDevuelto.appendChild(labelDevuelto)
+			contenidoDevuelto.appendChild(inputDevuelto)
+
 			contDisponible.appendChild(labelDisponible)
 			contDisponible.appendChild(listaDisponible)
 			contSeleccion.appendChild(labelSeleccion)
@@ -206,6 +242,12 @@ var crearPago = function(){
 			cardbody.appendChild(contenidoDni)
 			cardbody.appendChild(contenidoCliente)
 			cardbody.appendChild(contenidoBuscar)
+
+			contenidoForm.appendChild(contenidoSubtotal)
+			contenidoForm.appendChild(contenidoRecibido)
+			contenidoForm.appendChild(contenidoDevuelto)
+			cardbody.appendChild(contenidoForm)
+
 			card.appendChild(cardbody)
 			card.appendChild(contenedorListas)
 			contenedorForm.appendChild(card)
@@ -219,8 +261,8 @@ var crearPago = function(){
 }
 
 function listarDisponibles(){
-	var objetivo = document.getElementsByClassName('lista_disponible')
 
+	var objetivo = document.getElementsByClassName('lista_disponible')
 	for(let z=0;z<objetivo.length;z++){
 
 		objetivo[z].innerHTML = ''
@@ -242,20 +284,20 @@ function listarDisponibles(){
 }
 
 function listarSeleccionado(){
-	for (var i = 0; i < pagosGlobal.length; i++) {
+	for (var i = 0; i < cuentasArray.length; i++) {
 
-		let contenedor = document.getElementById(pagosGlobal[i].lista_sel)
+		let contenedor = document.getElementById(cuentasArray[i].lista_sel)
 		contenedor.innerHTML = ''
-		for (var j = 0; j < pagosGlobal[i].productos.length; j++) {
+		for (var j = 0; j < cuentasArray[i].productos.length; j++) {
 			let item = document.createElement('li')
 			let icon = document.createElement('i')
 			// item.setAttribute('href','javascript:void(0)')
 			icon.setAttribute('class', 'ti-check')
 			item.setAttribute('class','item-sel')
 			item.setAttribute('data-productoindice',j)
-			item.setAttribute('data-productoid',pagosGlobal[i].productos[j].id)
+			item.setAttribute('data-productoid',cuentasArray[i].productos[j].id)
 			item.setAttribute('data-pagoind',i)
-			item.textContent = pagosGlobal[i].productos[j].nombre+' ('+pagosGlobal[i].productos[j].precio+')'
+			item.textContent = cuentasArray[i].productos[j].nombre+' ('+cuentasArray[i].productos[j].precio+')'
 			item.appendChild(icon)
 			contenedor.appendChild(item)
 		}
@@ -268,5 +310,15 @@ var obtenerIndiceProducto = function(id){
 		if (productosG[i].id === id) {
 			return i
 		}
+	}
+}
+
+function calcular(){
+	for (var i = 0; i < cuentasArray.length; i++) {
+		let total = 0;
+		for (var j = 0; j < cuentasArray[i].productos.length; j++) {
+			total = parseInt(total + cuentasArray[i].productos[j].precio)
+		}
+
 	}
 }
