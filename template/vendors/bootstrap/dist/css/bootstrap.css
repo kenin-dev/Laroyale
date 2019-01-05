@@ -1,4 +1,4 @@
-/*!
+!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -2331,6 +2331,71 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
+
+
+/*Personalizado*/
+  
+.btn-excel {
+  color: #fff;
+  background-color: #008374;
+  border-color: #008374;
+}
+.btn-excel:hover {
+  color: #fff;
+  background-color: #008374;
+  border-color: #008374;
+}
+.btn-excel:focus, .btn-excel.focus {
+  box-shadow: 0 0 0 0.2rem rgb(0,120,6);
+}
+.btn-excel.disabled, .btn-excel:disabled {
+  color: #fff;
+  background-color: #008374;
+  border-color: #008374;
+}
+.btn-excel:not(:disabled):not(.disabled):active, .btn-excel:not(:disabled):not(.disabled).active,
+.show > .btn-excel.dropdown-toggle {
+  color: #fff;
+  background-color: #008374;
+  border-color: #008374;
+}
+.btn-excel:not(:disabled):not(.disabled):active:focus, .btn-excel:not(:disabled):not(.disabled).active:focus,
+.show > .btn-excel.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgb(0,120,6);
+}
+
+
+.btn-pdf {
+  color: #fff;
+  background-color: #EA3E23;
+  border-color: #EA3E23;
+}
+.btn-pdf:hover {
+  color: #fff;
+  background-color: #EA3E23;
+  border-color: #EA3E23;
+}
+.btn-pdf:focus, .btn-pdf.focus {
+  box-shadow: 0 0 0 0.2rem #cd4545;
+}
+.btn-pdf.disabled, .btn-pdf:disabled {
+  color: #fff;
+  background-color: #EA3E23;
+  border-color: #EA3E23;
+}
+.btn-pdf:not(:disabled):not(.disabled):active, .btn-pdf:not(:disabled):not(.disabled).active,
+.show > .btn-pdf.dropdown-toggle {
+  color: #fff;
+  background-color: #EA3E23;
+  border-color: #EA3E23;
+}
+.btn-pdf:not(:disabled):not(.disabled):active:focus, .btn-pdf:not(:disabled):not(.disabled).active:focus,
+.show > .btn-pdf.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #cd4545;
+}
+
+/**/
+
 
 .btn-primary {
   color: #fff;
@@ -9027,4 +9092,4 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=bootstrap.css.map 

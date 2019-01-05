@@ -7,10 +7,12 @@
                     </div>
 
                     <div class="h4 mb-0">
-                        <span class="count">15</span>
+                        <span class="count">
+                            <?php echo $cliente_total->cantidad; ?>
+                        </span>
                     </div>
 
-                    <small class="text-muted text-uppercase font-weight-bold">Clientes Nuevos</small>
+                    <small class="text-muted text-uppercase font-weight-bold">Clientes Registrados</small>
                     <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
                 </div>
             </div>
@@ -81,21 +83,24 @@
             <strong class="card-title pl-2">Bienvenido</strong>
         </div>
         <div class="card-body">
-            <div class="mx-auto d-block">
-                <img class="rounded-circle mx-auto d-block" src="<?= base_url()?>template/images/user.png" alt="Card image cap">
-                <h5 class="text-sm-center mt-2 mb-1"><?= $this->session->userdata('ses_nombre')?></h5>
-                <div class="location text-sm-center">
-                	<i class="fa fa-map-marker"></i>
-                	<?= $this->session->userdata('ses_email')?>
+            <form action="<?= base_url()?>usuario/perfil" method="POST">
+                <input type="hidden" name="codigo" value="<?= $this->session->userdata('ses_usuario'); ?>">
+                <div class="mx-auto d-block">
+                    <img class="rounded-circle mx-auto d-block" src="<?= base_url()?>template/images/user.png" alt="Card image cap">
+                    <h5 class="text-sm-center mt-2 mb-1"><?= $this->session->userdata('ses_nombre')?></h5>
+                    <div class="location text-sm-center">
+                        <i class="fa fa-map-marker"></i>
+                        <?= $this->session->userdata('ses_email')?>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="card-text text-sm-center">
-                <a class="btn btn-primary" href="<?= base_url()?>usuario/perfil">
-                	Actualizar datos&nbsp;
-                	<i class="ti-reload"></i>
-                </a>
-            </div>
+                <hr>
+                <div class="card-text text-sm-center">
+                    <button class="btn btn-dark" type="submit">
+                        Perfil&nbsp;
+                        <i class="ti-reload"></i>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -188,7 +188,7 @@ class Categoria extends CI_Controller
 	}
 
 	function consulta_rest(){
-		echo json_encode($this->CategoriaModel->select());
+		echo json_encode($this->CategoriaModel->select('activo'));
 	}
 
 }

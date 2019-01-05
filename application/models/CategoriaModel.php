@@ -10,6 +10,11 @@ class CategoriaModel extends CI_Model
 				$consulta = $this->db->query($sql);
 				return $consulta->result();
 				break;
+			case 'activo':
+				$sql = "SELECT * FROM categoria WHERE cat_estado = 1";
+				$consulta = $this->db->query($sql);
+				return $consulta->result();
+				break;
 			case 'id':
 				$sql = "SELECT * FROM categoria WHERE cat_codigo = ?";
 				$consulta = $this->db->query($sql, array($valor));

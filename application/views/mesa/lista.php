@@ -37,9 +37,10 @@
           <thead class="thead-secondary">
             <tr>
               <!-- <th scope="col">#</th> -->
+              <th scope="col">Nombre</th>
               <th scope="col">Numero</th>
               <th scope="col">Descripcion</th>
-              <th scope="col">Accion</th>
+              <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -47,8 +48,9 @@
                 <?php $cont = 0; ?>
                 <?php foreach ($mesas as $ms): ?>
                   <?php $cont++; ?>
-                <tr class="">
+                <tr class="text-center">
                   <!-- <td><?php echo $cont ?></td> -->
+                  <td>Mesa <?php echo $ms->mes_numero; ?></td>
                   <td><?php echo $ms->mes_numero; ?></td>
                   <td><?php echo $ms->mes_descripcion; ?></td>
                   <td>
@@ -69,6 +71,9 @@
 <script>
  
   document.addEventListener('DOMContentLoaded', function(e){
+    let tl = new TableLibrary('Mesas')
+    tl.inicializar()
+
     document.addEventListener('click', function(e){
       if(e.target.matches('#mesa-eliminar')){
         let mesa = e.target.dataset.mesa

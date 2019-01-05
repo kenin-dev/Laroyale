@@ -43,7 +43,7 @@
               <th scope="col">Precio</th>
               <th scope="col">Tipo</th>
               <th scope="col">Estado</th>
-              <th scope="col">Accion</th>
+              <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -84,8 +84,10 @@
 	</div>
 </div>
 <script>
- 
+  
   document.addEventListener('DOMContentLoaded', function(e){
+    let tl = new TableLibrary('Productos')
+    tl.inicializar()
     document.addEventListener('click', function(e){
       if(e.target.matches('#mesa-eliminar')){
         let mesa = e.target.dataset.mesa

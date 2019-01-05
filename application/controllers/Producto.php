@@ -167,14 +167,19 @@ class Producto extends CI_Controller
 		}
 	}
 
-	public function categoria_productos_rest(){
-		$cate_id = $this->input->post('categoria');
-		$productos = $this->ProductoModel->select('categoria',$cate_id);
-		echo json_encode($productos);
-	}
+	// public function categoria_productos_rest(){
+	// 	$cate_id = $this->input->post('categoria');
+	// 	$productos = $this->ProductoModel->select('categoria',$cate_id);
+	// 	echo json_encode($productos);
+	// }
 
 	function consulta_rest(){
 		echo json_encode($this->ProductoModel->select());
+	}
+
+	function consulta_rest_v2(){
+		$cat = $this->input->post('id');
+		echo json_encode($this->ProductoModel->select('categoria',$cat));
 	}
 }
 ?>

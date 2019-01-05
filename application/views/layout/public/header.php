@@ -55,7 +55,7 @@
                         </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li>
-                                <i class="ti-clipboard"></i>
+                                <i class="ti-ticket"></i>
                                 <a href="<?= base_url()?>pedido">Pedidos</a>
                             </li>
                         </ul>

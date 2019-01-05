@@ -73,44 +73,44 @@ class Notificacion{
 
 	exito(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
-        title: titulo,
-        message: mensaje,
-        position: posicion,
-        backgroundColor: 'rgb(42, 122, 120)',
-        messageColor: '#fff',
-        titleColor: 'rgb(236, 249, 178)',
-        timeout : 4000,
-        icon : 'ti-check',
-        iconColor: 'rgb(204, 238, 0)' 
-    });
+            title: titulo,
+            message: mensaje,
+            position: posicion,
+            backgroundColor: 'rgb(42, 122, 120)',
+            messageColor: '#fff',
+            titleColor: 'rgb(236, 249, 178)',
+            timeout : 4000,
+            icon : 'ti-check',
+            iconColor: 'rgb(204, 238, 0)' 
+        });
 	}
 
 	error(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
-        title: titulo,
-        message: mensaje,
-        position: posicion,
-        backgroundColor: '#fd0054',
-        messageColor: '#fff',
-        titleColor: '#fff',
-        timeout : 4000,
-        icon : 'ti-close',
-        iconColor: '#fff' 
-    });
+            title: titulo,
+            message: mensaje,
+            position: posicion,
+            backgroundColor: '#fd0054',
+            messageColor: '#fff',
+            titleColor: '#fff',
+            timeout : 4000,
+            icon : 'ti-close',
+            iconColor: '#fff' 
+        });
 	}
 
 	aviso(titulo, mensaje, posicion = 'topCenter'){
 		iziToast.show({
-        title: titulo,
-        message: mensaje,
-        position: posicion,
-        backgroundColor: 'rgb(249,210,25) ',
-        messageColor: 'rgb(101,100,95)',
-        titleColor: 'rgb(56,54,54)',
-        timeout : 4000,
-        icon : 'ti-info-alt',
-        iconColor: 'rgb(56,54,54)' 
-    });
+            title: titulo,
+            message: mensaje,
+            position: posicion,
+            backgroundColor: 'rgb(249,210,25) ',
+            messageColor: 'rgb(101,100,95)',
+            titleColor: 'rgb(56,54,54)',
+            timeout : 4000,
+            icon : 'ti-info-alt',
+            iconColor: 'rgb(56,54,54)' 
+        });
 	}
 
     info(titulo, mensaje, posicion){
@@ -139,21 +139,83 @@ class Notificacion{
 
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-    $('#dtable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-           'csv', 'excel', 'pdf', 'print'
-        ],
-        "language": {
-        "lengthMenu": "Mostrar _MENU_ registros por pagina",
-        "zeroRecords": "No se encontraron datos",
-        "info": "Mostrando pagina _PAGE_ de _PAGES_",
-        "infoEmpty": "Sin registros disponibles",
-        "infoFiltered": "(filtrando _MAX_ total records)"
-        }
-    });
-}, false);
+class TableLibrary {
+    constructor(entidad = 'informacion'){
+        this.entidad = entidad
+        this.titulo  = 'Laroyale - '+entidad 
+    }
+
+    inicializar(){
+        $('#dtable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+               { extend: 'excelHtml5',title: this.titulo },
+               { extend: 'pdfHtml5',title: this.titulo }
+            ],
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron datos",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros disponibles",
+            "infoFiltered": "(filtrando _MAX_ total records)"
+            }
+        }); 
+
+         $('#dtable2').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+               { extend: 'excelHtml5',title: this.titulo },
+               { extend: 'pdfHtml5',title: this.titulo }
+            ],
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron datos",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros disponibles",
+            "infoFiltered": "(filtrando _MAX_ total records)"
+            }
+        });
+
+         $('#dtable3').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+               { extend: 'excelHtml5',title: this.titulo },
+               { extend: 'pdfHtml5',title: this.titulo }
+            ],
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron datos",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros disponibles",
+            "infoFiltered": "(filtrando _MAX_ total records)"
+            }
+        }); 
+    }
+
+}
+
+// document.addEventListener('DOMContentLoaded', function(){
+//     $('#dtable').DataTable({
+//         dom: 'Bfrtip',
+//         buttons: [
+//             {
+//                 extend: 'excelHtml5',
+//                 title: 'Laroyale - Excel'
+//             },
+//             {
+//                 extend: 'pdfHtml5',
+//                 title: 'Laroyale - PDF '
+//             }
+//         ],
+//         "language": {
+//         "lengthMenu": "Mostrar _MENU_ registros por pagina",
+//         "zeroRecords": "No se encontraron datos",
+//         "info": "Mostrando pagina _PAGE_ de _PAGES_",
+//         "infoEmpty": "Sin registros disponibles",
+//         "infoFiltered": "(filtrando _MAX_ total records)"
+//         }
+//     });
+// }, false);
 
 
 var srv = new Servidor();

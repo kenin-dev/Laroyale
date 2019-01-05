@@ -42,7 +42,7 @@
               <th scope="col">Imagen</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Estado</th>
-              <th scope="col">Accion</th>
+              <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -113,6 +113,9 @@
 <script>
  
 document.addEventListener('DOMContentLoaded', function(e){
+  let tl = new TableLibrary('Categorias')
+  tl.inicializar()
+
   document.addEventListener('click', function(e){
 
     if(e.target.matches('.imagen-prev')){
@@ -130,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function(e){
     }
 
   }, false)
+
 }, true)
 
 </script>

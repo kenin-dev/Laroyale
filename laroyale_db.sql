@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-01-2019 a las 08:35:42
+-- Tiempo de generación: 05-01-2019 a las 10:14:36
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -26,6 +26,9 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuario_info` (IN `_cod` INT(11))  NO SQL
+SELECT u.usu_codigo,u.usu_empleado,u.usu_usuario,u.usu_clave,u.usu_estado,e.emp_documento as 'usu_documento',e.emp_tipodoc as 'usu_tipodoc',concat(e.emp_nombres,' ',e.emp_paterno,' ',e.emp_materno) as 'usu_nombres',e.emp_direccion as 'usu_direccion' FROM usuario u INNER JOIN empleado e ON u.usu_empleado = e.emp_codigo WHERE u.usu_codigo = _cod$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuario_verificar` (IN `_usuario` VARCHAR(50), IN `_clave` VARCHAR(50))  NO SQL
 SELECT u.usu_codigo,u.usu_empleado,e.emp_telefono,e.emp_email,u.usu_estado,concat(e.emp_nombres,' ',e.emp_paterno) as 'usu_nombres' FROM usuario u INNER JOIN empleado e ON e.emp_codigo = u.usu_empleado WHERE u.usu_usuario = _usuario AND u.usu_clave$$
 
@@ -53,8 +56,8 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`cat_codigo`, `cat_nombre`, `cat_abreviatura`, `cat_descripcion`, `cat_imagen`, `cat_estado`) VALUES
 (1, 'HAMBURGUESAS', 'HAMB', '', 'cloud/categoria/hamburguesas.jpg', 1),
 (2, 'SALCHIPAPAS', 'SALCHI', '      ', 'cloud/categoria/SALCHIPAPAS.jpg', 1),
-(3, 'SANDWICH DE FILETE DE POLLO', 'SAND', '      ', 'cloud/categoria/sandwich.jpg', 1),
-(4, 'CERVEZA ARTESANAL', 'CERV', '  ', 'cloud/categoria/cervezas.jpg', 1),
+(3, 'SANDWICH DE POLLO', 'SAND', '      ', 'cloud/categoria/sandwich.jpg', 1),
+(4, 'CERVEZA ARTESANAL', 'CERV', '  ', 'cloud/categoria/cervezas.jpg', 0),
 (5, 'BEBIDAS', 'BEB', '  ', 'cloud/categoria/BEBIDAS.jpg', 1),
 (6, 'BEBIDA CALIENTE', 'BEB_CAL', '          ', 'cloud/categoria/BEBIDA_CALIENTE.jpg', 1),
 (7, 'EXTRAS', 'EXT', '', 'cloud/categoria/extra.jpg', 1),
@@ -82,7 +85,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`cli_codigo`, `cli_dni`, `cli_nombres`, `cli_paterno`, `cli_materno`, `cli_direccion`, `cli_telefono`, `cli_tipocliente`) VALUES
-(2, '70609378', 'Jenifer', 'Rojas', 'Salinas', '987452147', 'Av. 21 de abril', 1),
+(2, '70609378', 'Jenifer', 'Rojas', 'Salinas', 'Av. 21 de abril', '987452147', 1),
 (3, '58964785', 'Luis ', 'Santos', 'Mont', '', '', 1),
 (4, '58745630', 'Aldo ', 'Raine', 'Stfu', 'New York', '', 1);
 
@@ -110,7 +113,7 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`emp_codigo`, `emp_tipodoc`, `emp_documento`, `emp_nombres`, `emp_paterno`, `emp_materno`, `emp_direccion`, `emp_telefono`, `emp_email`, `emp_estado`) VALUES
-(1, 1, '70609372', 'Carlos', 'Henostroza ', 'Ramos', 'Av. aviacion', '928005868', 'blackrap13@gmail.com', 0);
+(1, 1, '70609372', 'Carlos', 'Henostroza ', 'Ramos', 'Av. aviacion, Chimbote-Peru', '928005868', 'blackrap13@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -132,6 +135,38 @@ INSERT INTO `mesa` (`mes_codigo`, `mes_numero`, `mes_descripcion`) VALUES
 (1, '01', ''),
 (2, '02', ''),
 (3, '03', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido`
+--
+
+CREATE TABLE `pedido` (
+  `ped_codigo` int(11) NOT NULL,
+  `ped_serie` char(20) DEFAULT NULL,
+  `ped_tipo` int(11) NOT NULL,
+  `ped_destino` varchar(100) NOT NULL,
+  `ped_fecha` date NOT NULL,
+  `ped_subtotal` decimal(8,2) NOT NULL,
+  `ped_estado` enum('P','E','A') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido_detalle`
+--
+
+CREATE TABLE `pedido_detalle` (
+  `pdet_codigo` int(11) NOT NULL,
+  `pdet_pedido` int(11) NOT NULL,
+  `pdet_producto` int(11) NOT NULL,
+  `pdet_cantidad` int(4) NOT NULL,
+  `pdet_precio` decimal(8,2) NOT NULL,
+  `pdet_importe` decimal(8,2) NOT NULL,
+  `pdet_detalle` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -204,6 +239,27 @@ INSERT INTO `tipo_documento` (`tdoc_codigo`, `tdoc_titulo`, `tdo_descripcion`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_pedido`
+--
+
+CREATE TABLE `tipo_pedido` (
+  `tped_codigo` int(11) NOT NULL,
+  `tped_nombre` varchar(30) NOT NULL,
+  `tped_descripcion` varchar(60) NOT NULL,
+  `tped_estado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_pedido`
+--
+
+INSERT INTO `tipo_pedido` (`tped_codigo`, `tped_nombre`, `tped_descripcion`, `tped_estado`) VALUES
+(1, 'Presencial', 'Consumo en el mismo local', 1),
+(2, 'Delivery', 'Solicitud a distancia con acuerdo de entrega a domicilio', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -221,6 +277,28 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`usu_codigo`, `usu_empleado`, `usu_usuario`, `usu_clave`, `usu_estado`) VALUES
 (1, 1, 'coda', '1013', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `venta`
+--
+
+CREATE TABLE `venta` (
+  `ven_codigo` int(11) NOT NULL,
+  `ven_serie` char(10) NOT NULL,
+  `ven_cliente` int(11) NOT NULL DEFAULT '0',
+  `ven_usuario` int(11) NOT NULL,
+  `ven_fecha` date NOT NULL,
+  `ven_subtotal` decimal(8,2) NOT NULL,
+  `ven_comprobante` int(11) NOT NULL,
+  `ven_numerocomp` char(10) DEFAULT NULL,
+  `ven_descuento` decimal(8,2) NOT NULL,
+  `ven_total` decimal(8,2) NOT NULL,
+  `ven_recibido` decimal(8,2) NOT NULL,
+  `ven_devuelto` decimal(8,2) NOT NULL,
+  `ven_estado` enum('P','A','') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -254,6 +332,20 @@ ALTER TABLE `mesa`
   ADD UNIQUE KEY `mes_nombre` (`mes_numero`);
 
 --
+-- Indices de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`ped_codigo`),
+  ADD UNIQUE KEY `ped_serie` (`ped_serie`),
+  ADD KEY `ped_tipo` (`ped_tipo`);
+
+--
+-- Indices de la tabla `pedido_detalle`
+--
+ALTER TABLE `pedido_detalle`
+  ADD PRIMARY KEY (`pdet_codigo`);
+
+--
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
@@ -274,11 +366,23 @@ ALTER TABLE `tipo_documento`
   ADD PRIMARY KEY (`tdoc_codigo`);
 
 --
+-- Indices de la tabla `tipo_pedido`
+--
+ALTER TABLE `tipo_pedido`
+  ADD PRIMARY KEY (`tped_codigo`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`usu_codigo`),
   ADD KEY `usu_empleado` (`usu_empleado`);
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`ven_codigo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -305,6 +409,16 @@ ALTER TABLE `empleado`
 ALTER TABLE `mesa`
   MODIFY `mes_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `ped_codigo` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `pedido_detalle`
+--
+ALTER TABLE `pedido_detalle`
+  MODIFY `pdet_codigo` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
@@ -320,10 +434,20 @@ ALTER TABLE `tipo_cliente`
 ALTER TABLE `tipo_documento`
   MODIFY `tdoc_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `tipo_pedido`
+--
+ALTER TABLE `tipo_pedido`
+  MODIFY `tped_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `usu_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `ven_codigo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
@@ -339,6 +463,12 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `empleado`
   ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`emp_tipodoc`) REFERENCES `tipo_documento` (`tdoc_codigo`);
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`ped_tipo`) REFERENCES `tipo_pedido` (`tped_codigo`);
 
 --
 -- Filtros para la tabla `usuario`

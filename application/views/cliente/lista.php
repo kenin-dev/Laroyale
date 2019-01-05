@@ -43,7 +43,7 @@
               <th scope="col">Ape. Materno</th>
               <th scope="col">Direccion</th>
               <th scope="col">Telefono</th>
-              <th scope="col">Accion</th>
+              <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -75,6 +75,9 @@
 <script>
  
   document.addEventListener('DOMContentLoaded', function(e){
+    let tl = new TableLibrary('Clientes')
+    tl.inicializar()
+
     document.addEventListener('click', function(e){
       if(e.target.matches('#cliente-eliminar')){
         // alert('eliminar')

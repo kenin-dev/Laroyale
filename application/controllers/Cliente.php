@@ -42,8 +42,8 @@ class Cliente extends CI_Controller
 		$nombres = $this->input->post('inputNombres');
 		$paterno = $this->input->post('inputPaterno');
 		$materno = $this->input->post('inputMaterno');
-		$telefono = $this->input->post('inputTelefono');
 		$direccion = $this->input->post('inputDireccion');
+		$telefono = $this->input->post('inputTelefono');
 		$tipo_cliente = $this->input->post('inputTipocli');
 		
 		if (count($this->ClienteModel->select('dni',$dni)) > 0) {
@@ -57,8 +57,8 @@ class Cliente extends CI_Controller
 					'cli_nombres' => $nombres,
 					'cli_paterno' => $paterno,
 					'cli_materno' => $materno,
-					'cli_direccion' => $telefono,
-					'cli_telefono' => $direccion,
+					'cli_direccion' => $direccion,
+					'cli_telefono' => $telefono,
 					'cli_tipocliente' => $tipo_cliente
 				);
 				$registro = $this->ClienteModel->insert($clienteData);
