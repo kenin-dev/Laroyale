@@ -72,7 +72,7 @@ body {
 	position: absolute;
 	top: 80%;
 	left: 50%;
-	background-color: black;
+	background-color: #222831;
 	color: white;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -88,4 +88,25 @@ body {
 	width:  180px;
 	height: 170px;
 	margin: 5px;
+}
+
+.carta {
+	border: 1px solid #e3e3e3;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	padding: 1em;
+}
+
+.carta-item {
+	padding: 1em 1.5em;
+	background-color: #222831;
+	color: white; 
+	opacity: 0.8;
+	border-radius: 4px;
+}
+
+.b-y {
+	border-left: 6px solid #FBBC05;
+	cursor: pointer;
 }

@@ -25,7 +25,7 @@ class ProductoModel extends CI_Model
 				break;
 
 			case 'categoria':
-				$sql = "SELECT * FROM producto WHERE prod_categoria = ?";
+				$sql = "CALL proc_producto_categoria(?)";
 				$consulta = $this->db->query($sql, array($valor));
 				return $consulta->result();
 				break;

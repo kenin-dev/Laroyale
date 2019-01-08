@@ -10,10 +10,12 @@ class UsuarioModel extends CI_Model
 		return $usuario->row();
 	}
 
-	function select($tipo = 'todo', $valor = 0){
+	function select($tipo = 'todo', $d1 = 0,$d2 = 0){
 		switch ($tipo) {
-			case 'todo':
-				# code...
+			case 'usuario_pass':
+				$sql = "CALL proc_usuario_verificar(?,?)";
+				$usuario = $this->db->query($sql, array($d1,$d2));
+				return $usuario->row();
 				break;
 			
 			case 'id':

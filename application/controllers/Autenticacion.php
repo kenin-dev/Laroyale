@@ -19,12 +19,12 @@ class Autenticacion extends CI_Controller
 	} 
 
 	function login(){
-		$username = $this->input->post('username');
-		$pass     = $this->input->post('pass');
+		$username = $this->input->post('usuario');
+		$pass     = $this->input->post('clave');
 
-		$usuario = $this->UsuarioModel->buscar($username,$pass);
+		$usuario = $this->UsuarioModel->select('usuario_pass',$username,$pass);
 
-		if (is_null($usuario)) {
+		if (count($usuario) == 0) {
 			
 			$resp = array(
 				'estado' => 0,

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<?= base_url()?>template/library/print.js/print.min.css">
     <link rel="stylesheet" href="<?= base_url()?>template/fonts/iconfood/style.css">
     <link rel="stylesheet" href="<?= base_url()?>template/assets/css/app.css">
+    <link rel="stylesheet" href="<?= base_url()?>template/assets/css/loaders.css">
     <link rel="stylesheet" href="<?= base_url()?>template/fonts/Open Sans/open_sans.css">
     <link rel="stylesheet" href="<?= base_url()?>template/fonts/Roboto Mono/roboto_mono.css">
     <!-- <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css"> -->

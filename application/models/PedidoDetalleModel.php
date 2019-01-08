@@ -17,14 +17,16 @@ class PedidoDetalleModel extends CI_Model
 
 	function insert($data){
 		$this->db->insert("pedido_detalle",$data);
-		return $this->db->affected_rows();
+		// return $this->db->affected_rows();
 	}
+
+	// function insert($ped,$prod,$cant,$prec,$imp,$det){
+	// 	$sql = "INSERT INTO pedido_detalle(pdet_pedido,pdet_producto,pdet_cantidad,pdet_precio,pdet_importe,pdet_detalle) VALUES(NULL,?,?,?,?,?,?)";
+	// 	$this->db->query($sql,array($ped,$prod,$cant,$prec,$imp,$det));
+	// 	return $this->db->affected_rows();
+	// }
 }
-// function buscar($id){
-// 		$sql = "SELECT dp.dp_id,dp.pedido_id,concat(c.abreviatura,' ',p.nombre) as 'dp_producto',p.abreviatura as 'dp_producto_abrev',dp.dp_precio,dp.dp_cantidad,dp.dp_importe,dp.dp_detalle FROM detalle_pedido dp INNER JOIN productos p ON p.id = dp.producto_id INNER JOIN categorias c ON c.id = p.categoria_id WHERE pedido_id = ?";
-// 		$detalle = $this->db->query($sql, array($id));
-// 		return $detalle->result();
-// 	}
+
 ?>
 
 

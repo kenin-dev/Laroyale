@@ -76,7 +76,7 @@ class Notificacion{
             title: titulo,
             message: mensaje,
             position: posicion,
-            backgroundColor: 'rgb(42, 122, 120)',
+            backgroundColor: '#008374',
             messageColor: '#fff',
             titleColor: 'rgb(236, 249, 178)',
             timeout : 4000,
@@ -90,7 +90,7 @@ class Notificacion{
             title: titulo,
             message: mensaje,
             position: posicion,
-            backgroundColor: '#fd0054',
+            backgroundColor: '#FD5C63',
             messageColor: '#fff',
             titleColor: '#fff',
             timeout : 4000,
@@ -104,16 +104,16 @@ class Notificacion{
             title: titulo,
             message: mensaje,
             position: posicion,
-            backgroundColor: 'rgb(249,210,25) ',
-            messageColor: 'rgb(101,100,95)',
-            titleColor: 'rgb(56,54,54)',
+            backgroundColor: '#FCC70A',
+            messageColor: '#35495E',
+            titleColor: '#35495E',
             timeout : 4000,
             icon : 'ti-info-alt',
-            iconColor: 'rgb(56,54,54)' 
+            iconColor: '#35495E' 
         });
 	}
 
-    info(titulo, mensaje, posicion){
+    info(titulo, mensaje, posicion = 'topCenter'){
         iziToast.show({
             title: titulo,
             message: mensaje,
@@ -125,6 +125,33 @@ class Notificacion{
             icon : 'fas fa-exclamation-circle',
             iconColor: '#606470' 
         });
+    }
+
+    wait(titulo, mensaje, posicion = 'topCenter'){
+        iziToast.show({
+            title: titulo,
+            message: mensaje,
+            position: posicion,
+            backgroundColor: '#7B8994',
+            messageColor: '#fff',
+            titleColor: '#fff',
+            timeout : 5000,
+            icon : 'ti-rss-alt',
+            iconColor: '#fff' 
+        });
+    }
+
+    modal_cargando(){
+        Swal({
+          title: 'Registro de pedido!',
+          text: 'Procesando....',
+          closeOnClickOutside: false,
+          // imageUrl: 'https://unsplash.it/400/200',
+          // imageWidth: 400,
+          // imageHeight: 200,
+          // imageAlt: 'Custom image',
+          animation: false
+        })
     }
 
     inputError(input){
@@ -194,6 +221,38 @@ class TableLibrary {
 
 }
 
+class Backend{
+
+    delete(titulo,mensaje,ev){
+        let resp = false
+        Swal({
+          title: titulo,
+          text:  mensaje,
+          type:  tipo,
+          showCancelButton: true,
+          confirmButtonColor: '#1874c3',
+          cancelButtonColor: '#ff5959',
+          confirmButtonText: 'Si',
+          cancelButtonText: 'No'
+        }).then((res) => {
+          // console.log(res)
+          if (res.value) {
+            Swal(
+              'Genia!',
+              'Pedido anulado.',
+              'success'
+            )
+          }else{
+            ev.preventDefault()
+          }
+
+        })
+
+
+    }
+
+
+}
 // document.addEventListener('DOMContentLoaded', function(){
 //     $('#dtable').DataTable({
 //         dom: 'Bfrtip',
@@ -218,6 +277,7 @@ class TableLibrary {
 // }, false);
 
 
-var srv = new Servidor();
-var ui = new UI();
-var not = new Notificacion();
+const srv = new Servidor();
+const ui  = new UI();
+const not = new Notificacion();
+const bk  = new Backend() 

@@ -8,6 +8,25 @@
           <i class="ti-plus"></i>
       </a>
 		</div>
+    <div class="col-12">
+        <?php if ($this->session->flashdata('correcto')): ?>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Correcto : </strong>&nbsp;<?php echo $this->session->flashdata('correcto'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif ?>
+
+        <?php if ($this->session->flashdata('error')): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error : </strong>&nbsp;<?php echo $this->session->flashdata('error'); ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <?php endif ?>
+    </div>
 		<div class="card-body">
       
       <ul class="nav nav-pills nav-justified mb-3 mt-2" id="pills-tab" role="tablist">
@@ -41,10 +60,13 @@
                 <tr>
                   <td><?php echo $pen->ped_fecha; ?></td>
                   <td><?php echo $pen->ped_serie; ?></td>
-                  <td><?php echo $pen->ped_tipo; ?></td>
+                  <td><?php echo $pen->ped_tipo_nombre; ?></td>
                   <td><?php echo $pen->ped_destino; ?></td>
                   <td><?php echo $pen->ped_subtotal; ?></td>
-                  <td></td>
+                  <td>
+                    <a href="<?= base_url()?>pedido/anulacion/<?= $pen->ped_codigo;?>" data-serie="<?= $pen->ped_serie;?>" class="btn btn-danger text-light ti-na pen_anular" title="anular"></a>
+                    <a href="<?= base_url()?>pedido/editar/<?= $pen->ped_codigo;?>" class="btn btn-warning text-dark ti-pencil" title="editar"></a>
+                  </td>
                 </tr>
               <?php endforeach ?>
             </tbody>
@@ -114,4 +136,4 @@
 		</div>
 	</div>
 </div>
-<script src="<?= base_url()?>coda/pedido.listar.js"></script>
+<script src="<?= base_url()?>coda/pedido.lista.js"></script>

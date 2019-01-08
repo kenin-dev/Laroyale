@@ -13,24 +13,25 @@
   <link rel="stylesheet" href="<?= base_url()?>template/vendors/themify-icons/css/themify-icons.css">
   <link rel="stylesheet" href="<?= base_url()?>template/assets/css/login-style.css">
   <link rel="stylesheet" href="<?= base_url();?>template/library/iziToast/iziToast.min.css">
+  <link rel="stylesheet" href="<?= base_url()?>template/fonts/Open Sans/open_sans.css">
 </head>
-<body>
+<body style="font-family: 'Open Sans','segoe ui';">
 	<div class="container">
 		<form id="acceso_form" class="form-signin text-center" method="POST" action="<?= base_url()?>Autenticacion/login" autocomplete="off">
   	    <img class="img-responsive justify-content-center" src="<?= base_url()?>template/images/laroyale_medio_dark.png" alt="" width="300">
   	    <h1 class="h5 font-weight-bold">Acceso al sistema</h1>
   	    <hr>
   	    <label for="inputUsername" class="sr-only">Usuario</label>
-  	    <input type="text" name="inputUsername" class="form-control" placeholder="Usuario" required autofocus>
+  	    <input type="text" name="inputUsername" class="form-control" placeholder="Usuario"  autofocus>
 	      <label for="inputPass" class="sr-only">Contraseña</label>
-	      <input name="inputPass" type="password" class="form-control" placeholder="Contraseña" required>
-	      <button class="btn btn-lg btn-primary btn-block" type="submit">
+	      <input name="inputPass" type="password" class="form-control" placeholder="Contraseña" >
+	      <button id="b-enviar" disabled class="btn btn-lg btn-primary btn-block" type="submit">
 	      	Entrar&nbsp;
 	      	<i class="fa fa-location-arrow"></i>
 	      </button>
 			 <p>&nbsp;</p> 	
 	      <div class="checkbox mb-3">
-		      <a href="" class="text-dark"><b>Olvide mi contraseña.</b></a>
+		      <a id="e-recuperar" href="" class="text-primary"><b>Olvide mi contraseña.</b></a>
 		    </div>
 	    </form>
 	</div>
