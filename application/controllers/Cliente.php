@@ -171,5 +171,61 @@ class Cliente extends CI_Controller
 		echo json_encode($resp);
 
 	}
+
+	function consulta_rest(){
+		$valor = $this->input->post('valor');
+		$resp = $this->ClienteModel->select('filtro',$valor);
+		echo json_encode($resp);
+	}
+
+	function registro_rest(){
+		$dni = $this->input->post('dni');
+		$nombres = $this->input->post('nombres');
+		$paterno = $this->input->post('paterno');
+		$materno = $this->input->post('materno');
+		$vrf = $this->ClienteModel->select('ver_dni',$dni);
+		if (count($vrf) > 0) {
+
+			$resp = array(
+				'codigo'  => 0,
+				'mensaje' => 'ya existe un cliente con ese dni',
+				'contenido' => ''
+			);
+			echo json_encode($resp);
+			die();
+		}else{
+
+			$data = array(
+				'cli_dni' => $dni,
+				'cli_nombres' => $nombres,
+				'cli_paterno' => $paterno,
+				'cli_materno' => $materno,
+				'cli_direccion' => '',
+				'cli_telefono' => '',
+				'cli_tipocliente' => 1
+			);
+			$registro = $this->ClienteModel->insert2($data);
+			if (count($registro) > 0) {
+				$info = array(
+					'id'=>$registro,
+					'nombre' => $nombres.' '.$paterno.' '.$materno 
+				);
+
+				$resp = array(
+					'codigo'  => 1,
+					'mensaje' => 'Cliente registrado con exito',
+					'contenido' => $info
+				);
+			}else{
+				$resp = array(
+					'codigo'  => 0,
+					'mensaje' => 'El registro no se completo, intente de nuevo',
+					'contenido' => ''
+				);
+			}
+			echo json_encode($resp);
+		}
+		
+	}
 }
 ?>

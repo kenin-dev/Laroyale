@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-01-2019 a las 10:14:36
+-- Tiempo de generación: 09-01-2019 a las 02:34:12
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -26,11 +26,71 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pedido_buscar` (IN `_estado` VARCHAR(10))  BEGIN
+	SELECT p.ped_codigo,p.ped_serie,p.ped_tipo,p.ped_destino,p.ped_referencia,p.ped_fecha,p.ped_subtotal,p.ped_estado,tp.tped_nombre as 'ped_tipo_nombre' FROM pedido p 
+    INNER JOIN tipo_pedido tp ON tp.tped_codigo = ped_tipo WHERE p.ped_estado = _estado;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pedido_registrar` (IN `_tipo` INTEGER(11), IN `_destino` VARCHAR(100), IN `_referencia` VARCHAR(100), IN `_subtotal` DECIMAL(8,2))  BEGIN
+	DECLARE codigo INTEGER(11);
+    DECLARE serie CHAR(20);
+    DECLARE n_destino VARCHAR(50);
+    IF _tipo = 1 THEN 
+		SET n_destino = CONCAT('Mesa ',_destino);
+	ELSE 
+		SET n_destino = (_destino);
+    END IF;
+    
+    START TRANSACTION;
+    INSERT INTO pedido(ped_tipo,ped_destino,ped_referencia,ped_fecha,ped_subtotal,ped_estado) 
+    VALUES(_tipo,n_destino,_referencia,NOW(),_subtotal,'P');
+    
+    SET codigo = (SELECT LAST_INSERT_ID());
+    SET serie  = CONCAT('PED',LPAD(codigo,7,'0')); 
+    
+    
+    UPDATE pedido SET ped_serie = serie WHERE ped_codigo = codigo;
+    
+    SELECT codigo;
+    COMMIT;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_producto_categoria` (IN `_id` INT)  NO SQL
+SELECT p.prod_codigo,p.prod_nombre,p.prod_abreviatura,p.prod_descripcion,p.prod_precio,p.prod_categoria,c.cat_nombre as 'prod_categoria_nom',c.cat_abreviatura as 'prod_categoria_abrev',p.prod_estado FROM producto p INNER JOIN categoria c ON p.prod_categoria = c.cat_codigo 
+WHERE p.prod_categoria = _id AND p.prod_estado = 1$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuario_info` (IN `_cod` INT(11))  NO SQL
 SELECT u.usu_codigo,u.usu_empleado,u.usu_usuario,u.usu_clave,u.usu_estado,e.emp_documento as 'usu_documento',e.emp_tipodoc as 'usu_tipodoc',concat(e.emp_nombres,' ',e.emp_paterno,' ',e.emp_materno) as 'usu_nombres',e.emp_direccion as 'usu_direccion' FROM usuario u INNER JOIN empleado e ON u.usu_empleado = e.emp_codigo WHERE u.usu_codigo = _cod$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuario_verificar` (IN `_usuario` VARCHAR(50), IN `_clave` VARCHAR(50))  NO SQL
-SELECT u.usu_codigo,u.usu_empleado,e.emp_telefono,e.emp_email,u.usu_estado,concat(e.emp_nombres,' ',e.emp_paterno) as 'usu_nombres' FROM usuario u INNER JOIN empleado e ON e.emp_codigo = u.usu_empleado WHERE u.usu_usuario = _usuario AND u.usu_clave$$
+SELECT u.usu_codigo,u.usu_empleado,e.emp_telefono,e.emp_email,u.usu_estado,concat(e.emp_nombres,' ',e.emp_paterno) as 'usu_nombres' FROM usuario u INNER JOIN empleado e ON e.emp_codigo = u.usu_empleado WHERE u.usu_usuario = _usuario AND u.usu_clave = _clave$$
+
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `fx_pedido_registrar` (`_tipo` INT(11), `_destino` VARCHAR(100), `_referencia` VARCHAR(100), `_subtotal` DECIMAL(8,2)) RETURNS INT(11) BEGIN
+	DECLARE codigo INTEGER(11);
+    DECLARE serie CHAR(20);
+    DECLARE n_destino VARCHAR(50);
+    IF _tipo = 1 THEN 
+		SET n_destino = CONCAT('Mesa ',_destino);
+	ELSE 
+		SET n_destino = (_destino);
+    END IF;
+    
+  
+    INSERT INTO pedido(ped_tipo,ped_destino,ped_referencia,ped_fecha,ped_subtotal,ped_estado) 
+    VALUES(_tipo,n_destino,_referencia,NOW(),_subtotal,'P');
+    
+    SET codigo = (SELECT LAST_INSERT_ID());
+    SET serie  = CONCAT('PED-',LPAD(codigo,6,'0')); 
+    
+    
+    UPDATE pedido SET ped_serie = serie WHERE ped_codigo = codigo;
+	RETURN codigo;
+  
+	
+END$$
 
 DELIMITER ;
 
@@ -55,13 +115,13 @@ CREATE TABLE `categoria` (
 
 INSERT INTO `categoria` (`cat_codigo`, `cat_nombre`, `cat_abreviatura`, `cat_descripcion`, `cat_imagen`, `cat_estado`) VALUES
 (1, 'HAMBURGUESAS', 'HAMB', '', 'cloud/categoria/hamburguesas.jpg', 1),
-(2, 'SALCHIPAPAS', 'SALCHI', '      ', 'cloud/categoria/SALCHIPAPAS.jpg', 1),
+(2, 'SALCHIPAPAS', 'SALCHI', '        ', 'cloud/categoria/SALCHIPAPAS.jpg', 1),
 (3, 'SANDWICH DE POLLO', 'SAND', '      ', 'cloud/categoria/sandwich.jpg', 1),
 (4, 'CERVEZA ARTESANAL', 'CERV', '  ', 'cloud/categoria/cervezas.jpg', 0),
 (5, 'BEBIDAS', 'BEB', '  ', 'cloud/categoria/BEBIDAS.jpg', 1),
 (6, 'BEBIDA CALIENTE', 'BEB_CAL', '          ', 'cloud/categoria/BEBIDA_CALIENTE.jpg', 1),
 (7, 'EXTRAS', 'EXT', '', 'cloud/categoria/extra.jpg', 1),
-(24, 'Dulce', 'DUL', '        ', 'cloud/categoria/default_categoria.jpg', 1);
+(24, 'Dulce', 'DUL', '        ', 'cloud/categoria/default_categoria.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -147,10 +207,18 @@ CREATE TABLE `pedido` (
   `ped_serie` char(20) DEFAULT NULL,
   `ped_tipo` int(11) NOT NULL,
   `ped_destino` varchar(100) NOT NULL,
-  `ped_fecha` date NOT NULL,
+  `ped_referencia` varchar(100) NOT NULL,
+  `ped_fecha` datetime NOT NULL,
   `ped_subtotal` decimal(8,2) NOT NULL,
   `ped_estado` enum('P','E','A') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`ped_codigo`, `ped_serie`, `ped_tipo`, `ped_destino`, `ped_referencia`, `ped_fecha`, `ped_subtotal`, `ped_estado`) VALUES
+(53, 'PED-000053', 1, 'Mesa 02', '', '2019-01-08 03:10:15', '7.00', 'P');
 
 -- --------------------------------------------------------
 
@@ -167,6 +235,13 @@ CREATE TABLE `pedido_detalle` (
   `pdet_importe` decimal(8,2) NOT NULL,
   `pdet_detalle` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pedido_detalle`
+--
+
+INSERT INTO `pedido_detalle` (`pdet_codigo`, `pdet_pedido`, `pdet_producto`, `pdet_cantidad`, `pdet_precio`, `pdet_importe`, `pdet_detalle`) VALUES
+(15, 53, 1, 1, '7.00', '7.00', '');
 
 -- --------------------------------------------------------
 
@@ -343,7 +418,8 @@ ALTER TABLE `pedido`
 -- Indices de la tabla `pedido_detalle`
 --
 ALTER TABLE `pedido_detalle`
-  ADD PRIMARY KEY (`pdet_codigo`);
+  ADD PRIMARY KEY (`pdet_codigo`),
+  ADD KEY `pdet_pedido` (`pdet_pedido`);
 
 --
 -- Indices de la tabla `producto`
@@ -412,12 +488,12 @@ ALTER TABLE `mesa`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `ped_codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ped_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT de la tabla `pedido_detalle`
 --
 ALTER TABLE `pedido_detalle`
-  MODIFY `pdet_codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pdet_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
@@ -469,6 +545,12 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`ped_tipo`) REFERENCES `tipo_pedido` (`tped_codigo`);
+
+--
+-- Filtros para la tabla `pedido_detalle`
+--
+ALTER TABLE `pedido_detalle`
+  ADD CONSTRAINT `pedido_detalle_ibfk_1` FOREIGN KEY (`pdet_pedido`) REFERENCES `pedido` (`ped_codigo`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`

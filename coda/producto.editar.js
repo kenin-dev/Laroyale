@@ -4,7 +4,7 @@ const b_edit = document.getElementById('b-editar')
 document.addEventListener('DOMContentLoaded', function(e){
 
 	b_edit.disabled = false
-	cargarProducto()
+	// cargarProducto()
 	// console.log(nombresArray)
 	// console.log(categoriaArray)
 	

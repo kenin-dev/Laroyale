@@ -6,7 +6,9 @@ class PedidoDetalleModel extends CI_Model
 	function select($tipo = 'todo', $valor = 0){
 		switch ($tipo) {
 			case 'todo':
-				// $sql = "CALL proc_pedido";
+				$sql = "SELECT pd.pdet_codigo,pd.pdet_pedido,p.prod_codigo as 'pdet_producto',concat(c.cat_abreviatura,' ',p.prod_nombre) as 'pdet_producto_nombre',pd.pdet_cantidad,pd.pdet_precio,pd.pdet_importe,pd.pdet_detalle FROM pedido_detalle pd INNER JOIN producto p ON p.prod_codigo = pd.pdet_producto INNER JOIN categoria c ON p.prod_categoria = c.cat_codigo WHERE pdet_pedido = ?";
+				$todo = $this->db->query($sql, array($valor));
+				return $todo->result();
 				break;
 			
 			default:

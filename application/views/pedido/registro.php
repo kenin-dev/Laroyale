@@ -82,7 +82,7 @@
 						<br>
 					<div id="mostrador" class="overflow-auto">
 						<div class="col text-center">
-							<img src="<?= base_url()?>cloud/otros/loading.gif" alt="Cargando">
+							<img src="<?= base_url()?>cloud/otros/coolors_loader.svg" alt="Cargando">
 							<h5 class="pb-2 display-5">Cargando catalogo...</h5>
 						</div>
 					</div>

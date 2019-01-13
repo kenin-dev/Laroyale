@@ -26,14 +26,14 @@
 		    </div>
 			<div class="card-body p-4">
 				<form id="form-registro" action="<?= base_url()?>mesa/editar_enviar" autocomplete='off' method="POST">
-					<input class="form-control" type="hidden" name="inputId" value="<?= $mesa->mesa_id;?>">
+					<input class="form-control" type="hidden" name="inputId" value="<?= $mesa->mes_codigo;?>">
 					<div class="form-row">
 						<div class="col-12 col-md-6">
 							<div class="form-group">
 								<label for="inputNumero" class="font-weight-bold">
 									Numero 
 								</label>
-								<input name="inputNumero" type="text" class="form-control" value="<?= $mesa->mesa_numero; ?>" required>
+								<input name="inputNumero" type="text" class="form-control" value="<?= $mesa->mes_numero; ?>" required>
 							</div>
 						</div>
 						<div class="col-12 col-md-6">
@@ -41,7 +41,7 @@
 								<label for="inputEstado" class="font-weight-bold">
 									Estado Inicial 
 								</label>
-								<select name="inputEstado" class="form-control" value="<?= $mesa->mesa_estado; ?>">
+								<select name="inputEstado" class="form-control" value="<?= $mesa->mes_estado; ?>">
 									<option value="activo">Activo</option>
 									<option value="inactivo">Inactivo</option>
 									<option value="mantenimiento">Mantenimiento</option>
@@ -53,7 +53,7 @@
 								<label for="inputDescripcion" class="font-weight-bold">
 									Descripcion 
 								</label>
-								<textarea name="inputDescripcion" class="form-control" cols="10" rows="5"><?= $mesa->mesa_descripcion; ?></textarea>
+								<textarea name="inputDescripcion" class="form-control" cols="10" rows="5"><?= $mesa->mes_descripcion; ?></textarea>
 							</div>
 						</div>
 

@@ -109,7 +109,33 @@ class Pedido extends CI_Controller
 		redirect(base_url().'pedido','refresh');
 	}
 
-	function editar(){
+	function editar($id = null){
+		if (is_null($id)) {
+			
+			$pedido = $this->PedidoModel->select('id',$id);
+			if (count($pedido) > 0) {
+				
+				$data = array(
+					'pedido' => $pedido,
+					'detalle' => $this->PedidoDetalleModel->select()
+				);
+				$this->load->view('layout/public/header.php');
+				$this->load->view('pedido/editar.php', $data);
+				$this->load->view('layout/public/footer.php');
+
+			}else{
+				$this->session->set_flashdata('error', 'Pedido no encontrado.');
+				redirect(base_url().'pedido','refresh');
+			}
+		}else{
+			$this->session->set_flashdata('error', 'Pedido no especificado.');
+			redirect(base_url().'pedido','refresh');
+		}
+		
+
+	}
+
+	function editar_send(){
 
 		$data = array(
 			'tipo_pedido' => $this->TipoPedidoModel->select(),
@@ -120,6 +146,5 @@ class Pedido extends CI_Controller
 		$this->load->view('layout/public/footer.php');
 
 	}
-
 }
 

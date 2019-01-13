@@ -50,7 +50,7 @@ function verificar(data){
 		return resp.json()
 	})
 	.then(function(resp){
-		console.log(resp)
+		// console.log(resp)
 		switch(resp.estado){
 			case 0:
 				not.aviso('Oops',resp.mensaje,'topCenter')

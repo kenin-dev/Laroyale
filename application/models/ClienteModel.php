@@ -19,12 +19,25 @@ class ClienteModel extends CI_Model
 				$consulta = $this->db->query($sql, array($valor));
 				return $consulta->row();
 				break;
+			case 'filtro':
+				$sql = "SELECT * FROM cliente WHERE cli_dni like concat(?,'%') OR cli_paterno like concat(?,'%')";
+				$filtro = $this->db->query($sql, array($valor,$valor));
+				return $filtro->result();
+			case 'ver_dni':
+				$sql = "SELECT * FROM cliente WHERE cli_dni=?";
+				$ver_dni = $this->db->query($sql, array($valor));
+				return $ver_dni->result();
 		}
 	}
 
 	function insert($data){
 		$this->db->insert("cliente",$data);
 		return $this->db->affected_rows();
+	}
+
+	function insert2($data){
+		$this->db->insert("cliente",$data);
+		return $this->db->insert_id();
 	}
 
 	function delete($id){

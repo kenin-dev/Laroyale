@@ -472,7 +472,7 @@ function registrarPedido_Ajx(){
 						setTimeout(function(){
 							window.location = srv.url()+'pedido'
 							// console.log('joola')
-						}, 1200)
+						}, 900)
 						break;
 				}
 			}

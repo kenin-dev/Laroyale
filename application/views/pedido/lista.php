@@ -66,6 +66,10 @@
                   <td>
                     <a href="<?= base_url()?>pedido/anulacion/<?= $pen->ped_codigo;?>" data-serie="<?= $pen->ped_serie;?>" class="btn btn-danger text-light ti-na pen_anular" title="anular"></a>
                     <a href="<?= base_url()?>pedido/editar/<?= $pen->ped_codigo;?>" class="btn btn-warning text-dark ti-pencil" title="editar"></a>
+                    <a href="<?= base_url()?>cuenta/crear/<?= $pen->ped_codigo;?>" class="btn btn-dark btn-sm text-light" title="Cuenta">
+                      Cuenta&nbsp;
+                      <i class="ti-credit-card"></i>
+                    </a>
                   </td>
                 </tr>
               <?php endforeach ?>

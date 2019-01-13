@@ -22,9 +22,9 @@
   	    <h1 class="h5 font-weight-bold">Acceso al sistema</h1>
   	    <hr>
   	    <label for="inputUsername" class="sr-only">Usuario</label>
-  	    <input type="text" name="inputUsername" class="form-control" placeholder="Usuario"  autofocus>
+  	    <input type="text" name="inputUsername" class="form-control text-center" placeholder="Usuario"  autofocus>
 	      <label for="inputPass" class="sr-only">Contraseña</label>
-	      <input name="inputPass" type="password" class="form-control" placeholder="Contraseña" >
+	      <input name="inputPass" type="password" class="form-control text-center" placeholder="Contraseña" >
 	      <button id="b-enviar" disabled class="btn btn-lg btn-primary btn-block" type="submit">
 	      	Entrar&nbsp;
 	      	<i class="fa fa-location-arrow"></i>
